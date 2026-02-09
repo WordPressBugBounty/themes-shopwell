@@ -1,4 +1,8 @@
-= 1.0.11 - 60 December 2025  =
+= 1.0.12 - 09 February 2026  =
+* [Fixed]: Security vulnerability in AJAX product attributes endpoint 'shopwell_wc_product_attributes'.
+* [Updated]: WooCommerce 10.5.0 templates.
+
+= 1.0.11 - 06 December 2025  =
 * [Updated]: WordPress 6.9 compaibility check.
 
 = 1.0.10 - 30 October 2025  =
@@ -53,3 +57,4 @@
 
 = 1.0.0 =
 * Initial release 🚀
+

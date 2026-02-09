@@ -6,7 +6,7 @@ Tested up to: 6.9
 Requires PHP: 7.0
 License: GNU General Public License v2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0.11
+Stable tag: 1.0.12
 
 Responsive and highly customizable e-commerce theme that makes it easy for anyone to create their perfect online store or marketplace.
 
@@ -28,7 +28,11 @@ Shopwell is distributed under the terms of the GNU GPLs
 
 == Changelog ==
 
-= 1.0.11 - 60 December 2025  =
+= 1.0.12 - 09 February 2026  =
+* [Fixed]: Security vulnerability in AJAX product attributes endpoint 'shopwell_wc_product_attributes'.
+* [Updated]: WooCommerce 10.5.0 templates.
+
+= 1.0.11 - 06 December 2025  =
 * [Updated]: WordPress 6.9 compaibility check.
 
 = 1.0.10 - 30 October 2025  =

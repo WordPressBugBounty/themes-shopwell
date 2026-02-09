@@ -121,17 +121,29 @@ class Product {
 	 * @return void
 	 */
 	public function wc_get_product_attributes() {
-		$post_id = $_POST['post_id'];
+		$post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : 0;
+		$nonce   = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
-		if ( empty( $post_id ) ) {
-			return;
+		// Verify nonce and post ID.
+		if ( ! $post_id || ! wp_verify_nonce( $nonce, 'search-tags' ) ) {
+			wp_send_json_error();
+			wp_die();
 		}
+
+		// Check user capability to edit post.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			wp_send_json_error();
+			wp_die();
+		}
+
 		ob_start();
 		$this->get_product_attributes( $post_id );
 		$response = ob_get_clean();
+
 		wp_send_json_success( $response );
-		die();
+		wp_die();
 	}
+
 
 	/**
 	 * Get Product Attributes function.

@@ -47,7 +47,8 @@ jQuery(document).ready(function ($) {
 			method  : 'post',
 			data    : {
 				action : 'shopwell_wc_product_attributes',
-				post_id: postID
+				post_id: postID,
+				nonce  : shopwell_wc_settings.search_tag_nonce
 			},
 			success : function (response) {
 				$('#shopwell-product-attributes').html(response.data);
