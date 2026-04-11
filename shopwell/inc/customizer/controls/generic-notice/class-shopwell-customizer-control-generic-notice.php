@@ -109,6 +109,7 @@ class Shopwell_Customizer_Control_Generic_Notice extends WP_Customize_Section {
 		$json                          = parent::json();
 		$json['section_text']          = $this->section_text;
 		$json['hide_notice']           = $this->hide_notice;
+		$json['slug']                  = $this->slug;
 		$json['plugin_install_button'] = $this->create_plugin_install_button( $this->slug, $this->options );
 
 		return $json;
@@ -125,16 +126,22 @@ class Shopwell_Customizer_Control_Generic_Notice extends WP_Customize_Section {
 		?>
 		<# if ( !data.hide_notice ) { #>
 		<li id="accordion-section-{{ data.id }}"
-				class="shopwell-notice accordion-section control-section control-section-{{ data.type }} cannot-expand">
+				class="shopwell-notice accordion-section control-section control-section-{{ data.type }} cannot-expand"
+				data-notice-id="{{ data.id }}" style="position:relative;">
 			<button type="button" class="notice-dismiss" style="z-index: 1;"></button>
-			<h4 class="accordion-section-title" style="padding-right: 36px">
-				<# if ( data.section_text ) { #>
-				{{{data.section_text}}}
+			<div class="accordion-section-title" style="padding-right: 36px; display: block; background-color: #f0f0f1;">
+				<# if ( data.slug ) { #>
+				<h3 style="margin-top: 0;margin-bottom: 0;">{{{data.slug.split('-').map(function(word) { return word.charAt(0).toUpperCase() + word.slice(1); }).join(' '	)}}}</h3>
 				<# } #>
+
+				<# if ( data.section_text ) { #>
+				<p>{{{data.section_text}}}</p>
+				<# } #>
+
 				<# if ( data.plugin_install_button ) { #>
 				{{{data.plugin_install_button}}}
 				<# } #>
-			</h4>
+			</div>
 
 		</li>
 		<# } #>

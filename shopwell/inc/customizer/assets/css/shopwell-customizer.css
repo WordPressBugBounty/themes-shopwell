@@ -546,6 +546,10 @@ body:not(.wp-customizer) input[type=submit],
     color: #656a6f;
 }
 
+#customize-theme-controls #accordion-section-shopwell_section_hester_core.shopwell-notice .accordion-section-title:after {
+    display: none;
+}
+
 #customize-controls .customize-control-description {
     font-style: normal;
 }

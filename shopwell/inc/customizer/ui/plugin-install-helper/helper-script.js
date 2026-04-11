@@ -8,97 +8,127 @@
 /* global console */
 
 jQuery( document ).ready(
-	function ( $ ) {
-		$.pluginInstall = {
-			'init': function () {
-				this.handleInstall();
-				this.handleActivate();
-			},
+    function ( $ ) {
+        $.pluginInstall = {
+            'init': function () {
+                this.handleInstall();
+                this.handleActivate();
+                this.handleDismiss();
+            },
 
-			'handleInstall': function () {
-				var self = this;
-				$( 'body' ).on(
-					'click',
-					'.shopwell-install-plugin',
-					function ( e ) {
-						e.preventDefault();
-						var button   = $( this );
-						var slug     = button.attr( 'data-slug' );
-						var url      = button.attr( 'href' );
-						var redirect = $( button ).attr( 'data-redirect' );
-						button.text( wp.updates.l10n.installing );
-						button.addClass( 'updating-message' );
-						wp.updates.installPlugin(
-							{
-								slug: slug,
-								success: function () {
-									button.text( shopwell_plugin_helper.activating + '...' );
-									self.activatePlugin( url, redirect );
-								}
-							}
-						);
-					}
-				);
-			},
+            'handleInstall': function () {
+                var self = this;
+                $( 'body' ).on(
+                    'click',
+                    '.shopwell-install-plugin',
+                    function ( e ) {
+                        e.preventDefault();
+                        var button   = $( this );
+                        var slug     = button.attr( 'data-slug' );
+                        var url      = button.attr( 'href' );
+                        var redirect = $( button ).attr( 'data-redirect' );
+                        button.text( wp.updates.l10n.installing );
+                        button.addClass( 'updating-message' );
+                        wp.updates.installPlugin(
+                            {
+                                slug: slug,
+                                success: function () {
+                                    button.text( shopwell_plugin_helper.activating + '...' );
+                                    self.activatePlugin( url, redirect );
+                                }
+                            }
+                        );
+                    }
+                );
+            },
 
-			'activatePlugin': function ( url, redirect ) {
-				if ( 'undefined' === typeof url || ! url ) {
-					return;
-				}
-				jQuery.ajax(
-					{
-						async: true,
-						type: 'GET',
-						url: url,
-						success: function () {
+            'handleDismiss': function () {
+                $( 'body' ).on(
+                    'click',
+                    '.shopwell-notice .notice-dismiss',
+                    function ( e ) {
+                        e.preventDefault();
 
-							// Reload the page.
-							if ( 'undefined' !== typeof ( redirect ) && '' !== redirect ) {
-								window.location.replace( redirect );
-							} else {
-								location.reload();
-							}
-						},
-						error: function ( jqXHR, exception ) {
-							var msg = '';
-							if ( 0 === jqXHR.status ) {
-								msg = 'Not connect.\n Verify Network.';
-							} else if ( 404 === jqXHR.status ) {
-								msg = 'Requested page not found. [404]';
-							} else if ( 500 === jqXHR.status ) {
-								msg = 'Internal Server Error [500].';
-							} else if ( 'parsererror' === exception ) {
-								msg = 'Requested JSON parse failed.';
-							} else if ( 'timeout' === exception ) {
-								msg = 'Time out error.';
-							} else if ( 'abort' === exception ) {
-								msg = 'Ajax request aborted.';
-							} else {
-								msg = 'Uncaught Error.\n' + jqXHR.responseText;
-							}
-							console.log( msg );
-						}
-					}
-				);
-			},
+                        var $notice = $( this ).closest( '.shopwell-notice' );
+                        var noticeId = $notice.data( 'notice-id' );
+                        var ajaxurl = window.ajaxurl || ( window.shopwell_customizer_localized && window.shopwell_customizer_localized.ajaxurl );
+                        var nonce = window.shopwell_customizer_localized && window.shopwell_customizer_localized.dismiss_notice_nonce ? window.shopwell_customizer_localized.dismiss_notice_nonce : '';
 
-			'handleActivate': function () {
-				var self = this;
-				$( 'body' ).on(
-					'click',
-					'.activate-now',
-					function ( e ) {
-						e.preventDefault();
-						var button   = $( this );
-						var url      = button.attr( 'href' );
-						var redirect = button.attr( 'data-redirect' );
-						button.addClass( 'updating-message' );
-						button.text( shopwell_plugin_helper.activating + '...' );
-						self.activatePlugin( url, redirect );
-					}
-				);
-			}
-		};
-		$.pluginInstall.init();
-	}
+                        if ( noticeId && ajaxurl ) {
+                            $.post( ajaxurl, {
+                                action: 'shopwell_dismiss_notice',
+                                msgid: noticeId,
+                                _ajax_nonce: nonce,
+                            } );
+                        }
+
+                        $notice.fadeTo( 100, 0, function () {
+                            $notice.slideUp( 100, function () {
+                                $notice.remove();
+                            } );
+                        } );
+                    }
+                );
+            },
+
+            'activatePlugin': function ( url, redirect ) {
+                if ( 'undefined' === typeof url || ! url ) {
+                    return;
+                }
+                jQuery.ajax(
+                    {
+                        async: true,
+                        type: 'GET',
+                        url: url,
+                        success: function () {
+
+                            // Reload the page.
+                            if ( 'undefined' !== typeof ( redirect ) && '' !== redirect ) {
+                                window.location.replace( redirect );
+                            } else {
+                                location.reload();
+                            }
+                        },
+                        error: function ( jqXHR, exception ) {
+                            var msg = '';
+                            if ( 0 === jqXHR.status ) {
+                                msg = 'Not connect.\n Verify Network.';
+                            } else if ( 404 === jqXHR.status ) {
+                                msg = 'Requested page not found. [404]';
+                            } else if ( 500 === jqXHR.status ) {
+                                msg = 'Internal Server Error [500].';
+                            } else if ( 'parsererror' === exception ) {
+                                msg = 'Requested JSON parse failed.';
+                            } else if ( 'timeout' === exception ) {
+                                msg = 'Time out error.';
+                            } else if ( 'abort' === exception ) {
+                                msg = 'Ajax request aborted.';
+                            } else {
+                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                            }
+                            console.log( msg );
+                        }
+                    }
+                );
+            },
+
+            'handleActivate': function () {
+                var self = this;
+                $( 'body' ).on(
+                    'click',
+                    '.activate-now',
+                    function ( e ) {
+                        e.preventDefault();
+                        var button   = $( this );
+                        var url      = button.attr( 'href' );
+                        var redirect = button.attr( 'data-redirect' );
+                        button.addClass( 'updating-message' );
+                        button.text( shopwell_plugin_helper.activating + '...' );
+                        self.activatePlugin( url, redirect );
+                    }
+                );
+            }
+        };
+        $.pluginInstall.init();
+    }
 );

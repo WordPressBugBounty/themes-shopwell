@@ -159,7 +159,7 @@ function shopwell_dismiss_notice() {
 	}
 
 	$message_id = sanitize_text_field( wp_unslash( $_POST['msgid'] ) );
-	$expires    = isset( $post['expires'] ) ? intval( $post['expires'] ) : 0;
+	$expires    = isset( $_POST['expires'] ) ? intval( wp_unslash( $_POST['expires'] ) ) : 0;
 
 	$message              = (array) get_transient( 'shopwell_notice_' . $message_id );
 	$message['time']      = time();

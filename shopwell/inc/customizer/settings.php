@@ -198,7 +198,7 @@ class Settings {
 			'shopwell_mobile'     => array(
 				'priority' => 90,
 				'title'    => esc_html__( 'Mobile', 'shopwell' ),
-			)
+			),
 		);
 
 		$sections = array(
@@ -375,20 +375,45 @@ class Settings {
 				'pro_text' => esc_html__( 'Upgrade to pro', 'shopwell' ),
 				'priority' => 200,
 			),
-			'shopwell_section_docs_button' => array(
+			'shopwell_section_docs_button'   => array(
 				'class'    => 'Shopwell_Customizer_Control_Section_Pro',
 				'title'    => esc_html__( 'Need Help?', 'shopwell' ),
 				'pro_url'  => esc_url_raw( 'http://docs.peregrine-themes.com/docs-category/shopwell-pro/' ),
 				'pro_text' => esc_html__( 'See the docs', 'shopwell' ),
 				'priority' => 200,
 			),
+
+			'shopwell_section_hester_core'   => array(
+				'class'        => 'Shopwell_Customizer_Control_Generic_Notice',
+				'section_text' =>
+				sprintf(
+					/* translators: %1$s is Plugin Name */
+					esc_html__( 'To take full advantage of all the features this theme has to offer, please install and activate the %1$s plugin.', 'shopwell' ),
+					sprintf( '<b>%s</b>', esc_html__( 'Hester Core', 'shopwell' ) )
+				),
+				'slug'         => 'hester-core',
+				'priority'     => 0,
+				'capability'   => 'install_plugins',
+				'hide_notice'  => false,
+				'options'      => array(
+					'redirect' => admin_url( 'admin.php' ) . '?page=shopwell-demo-library',
+				),
+			),
 		);
 
-		if( class_exists( \Shopwell\Addons::class ) ){
+		if ( function_exists( 'shopwell_is_notice_dismissed' ) ) {
+			foreach ( $sections as $section_id => $section ) {
+				if ( isset( $section['class'] ) && 'Shopwell_Customizer_Control_Generic_Notice' === $section['class'] && shopwell_is_notice_dismissed( $section_id ) ) {
+					$sections[ $section_id ]['hide_notice'] = true;
+				}
+			}
+		}
+
+		if ( class_exists( \Shopwell\Addons::class ) ) {
 			unset( $sections['shopwell_section_upsell_button'] );
-		}else{
+		} else {
 			$sections['shopwell_header_mobile_layout'] = array(
-				'title' => esc_html__('Header Layout', 'shopwell'),
+				'title' => esc_html__( 'Header Layout', 'shopwell' ),
 				'panel' => 'shopwell_mobile',
 			);
 		}
@@ -449,20 +474,20 @@ class Settings {
 		);
 
 		// Header mobile.
-        $settings['shopwell_header_mobile_layout'] = array(
-            'shopwell_header_mobile_version'              => array(
-                'sanitize_callback' => 'shopwell_sanitize_select',
-                'type'              => 'shopwell-select',
-                'label'             => esc_html__( 'Prebuilt Header', 'shopwell' ),
-                'choices'           => $this->header_options(false),
-                'required'          => array(
-                    array(
-                        'control'  => 'shopwell_header_mobile_present',
-                        'operator' => '==',
-                        'value'    => 'prebuild',
-                    ),
-                ),
-            ),
+		$settings['shopwell_header_mobile_layout'] = array(
+			'shopwell_header_mobile_version' => array(
+				'sanitize_callback' => 'shopwell_sanitize_select',
+				'type'              => 'shopwell-select',
+				'label'             => esc_html__( 'Prebuilt Header', 'shopwell' ),
+				'choices'           => $this->header_options( false ),
+				'required'          => array(
+					array(
+						'control'  => 'shopwell_header_mobile_present',
+						'operator' => '==',
+						'value'    => 'prebuild',
+					),
+				),
+			),
 		);
 
 		$settings['title_tagline'] = array(
@@ -1169,17 +1194,29 @@ class Settings {
 			),
 		);
 
-		// Upsell section
+		// Generic notice.
+		if ( ! class_exists( 'Hester_Core' ) ) {
+			$settings['shopwell_section_hester_core'] = array(
+				'shopwell_section_hester_core_heading' => array(
+					'transport'         => 'refresh',
+					'sanitize_callback' => 'sanitize_text_field',
+					'type'              => 'hidden',
+					'section'           => 'shopwell_section_hester_core',
+				),
+			);
+		}
+
+		// Upsell section.
 		$settings['shopwell_section_upsell_button'] = array(
 			'shopwell_section_upsell_heading' => array(
-				'type'    => 'hidden',
-			)
+				'type' => 'hidden',
+			),
 		);
-		// Docs link
+		// Docs link.
 		$settings['shopwell_section_docs_button'] = array(
 			'shopwell_section_docs_heading' => array(
-				'type'    => 'hidden',
-			)
+				'type' => 'hidden',
+			),
 		);
 
 		return array(

@@ -39,7 +39,7 @@ final class Theme {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	public $version = '1.0.12';
+	public $version = '1.0.13';
 
 	/**
 	 * Initiator
@@ -283,8 +283,8 @@ final class Theme {
 		register_block_style(
 			'core/list',
 			array(
-				'name'         => 'checkmark-list',
-				'label'        => __( 'Checkmark', 'shopwell' ),
+				'name'  => 'checkmark-list',
+				'label' => __( 'Checkmark', 'shopwell' ),
 			)
 		);
 		// Register arrow-list block styles.

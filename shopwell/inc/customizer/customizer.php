@@ -113,6 +113,7 @@ class Customizer {
 	public function load_customizer_helpers() {
 		require_once dirname(__FILE__) . '/customizer-callbacks.php'; // phpcs:ignore
 		require_once dirname(__FILE__) . '/customizer-partials.php'; // phpcs:ignore
+		require_once dirname(__FILE__) . '/ui/plugin-install-helper/class-shopwell-customizer-plugin-install-helper.php'; // phpcs:ignore
 	}
 
 
@@ -362,7 +363,7 @@ class Customizer {
 				'gallery'             => 'Shopwell_Customizer_Control_Gallery',
 				'datetime'            => 'Shopwell_Customizer_Control_Datetime',
 				'section-group-title' => 'Shopwell_Customizer_Control_Section_Group_Title',
-				'section-pro' 		  => 'Shopwell_Customizer_Control_Section_Pro',
+				'section-pro'         => 'Shopwell_Customizer_Control_Section_Pro',
 			)
 		);
 	}
@@ -472,6 +473,7 @@ class Customizer {
 		$shopwell_customizer_localized = array(
 			'ajaxurl'                 => admin_url( 'admin-ajax.php' ),
 			'wpnonce'                 => wp_create_nonce( 'shopwell_customizer' ),
+			'dismiss_notice_nonce'    => wp_create_nonce( 'shopwell_dismiss_notice' ),
 			'color_palette'           => array( '#ffffff', '#000000', '#e4e7ec', '#0068c8', '#f7b40b', '#e04b43', '#30373e', '#8a63d4' ),
 			'preview_url_for_section' => $this->get_preview_urls_for_section(),
 			'strings'                 => array(
