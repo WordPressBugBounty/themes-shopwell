@@ -6,7 +6,7 @@ Tested up to: 6.9
 Requires PHP: 7.0
 License: GNU General Public License v2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0.13
+Stable tag: 1.0.14
 
 Responsive and highly customizable e-commerce theme that makes it easy for anyone to create their perfect online store or marketplace.
 
@@ -27,6 +27,9 @@ Shopwell WordPress Theme, Copyright (c) 2025, Peregrinethemes
 Shopwell is distributed under the terms of the GNU GPLs
 
 == Changelog ==
+
+= 1.0.14 - 24 April 2026 =
+* [Fixed]: Sponsor 'swiper' infinite loop issue fixed.
 
 = 1.0.13 - 11 April 2026 =
 * [New]: Included a new helper script to handle dismissing notices via AJAX.

@@ -1,3 +1,6 @@
+= 1.0.14 - 24 April 2026 =
+* [Fixed]: Sponsor 'swiper' infinite loop issue fixed.
+
 = 1.0.13 - 11 April 2026 =
 * [New]: Included a new helper script to handle dismissing notices via AJAX.
 * [New]: Introduced a new section in the customizer settings for the Hester Core plugin notice.
