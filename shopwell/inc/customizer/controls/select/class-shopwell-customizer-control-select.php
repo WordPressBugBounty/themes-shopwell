@@ -78,73 +78,110 @@ if ( ! class_exists( 'Shopwell_Customizer_Control_Select' ) ) :
 
 			parent::__construct( $manager, $id, $args );
 
-			if ( $this->is_select2 ) {
+			if ( $this->is_select2 && $this->data_source ) {
+				$selected_values = $this->value();
 
-				switch ( $this->data_source ) {
+				if ( ! is_array( $selected_values ) ) {
+					$selected_values = $selected_values ? explode( ',', (string) $selected_values ) : array();
+				}
 
-					case 'category':
-						$args       = array(
-							'hide_empty' => true,
-							'taxonomy'   => $this->data_source_name ?? 'category',
-						);
-						$categories = get_terms( $args );
+				$selected_values = array_filter( array_map( 'trim', $selected_values ) );
+				$selected_values = array_unique( $selected_values );
 
-						$choices = array();
+				if ( ! empty( $selected_values ) ) {
+					$selected_ids = array_map( 'intval', $selected_values );
+					$choices      = array();
 
-						if ( ! empty( $categories ) ) {
+					switch ( $this->data_source ) {
+						case 'category':
+							$args  = array(
+								'taxonomy'   => $this->data_source_name ?? 'category',
+								'hide_empty' => false,
+								'include'    => $selected_ids,
+							);
+							$terms = get_terms( $args );
 
-							foreach ( $categories as $category ) {
-								if ( ! is_object( $category ) ) {
-									continue;
+							if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+								foreach ( $terms as $term ) {
+									$choices[ $term->term_id ] = $term->name;
 								}
-								$choices[ $category->slug ] = $category->name;
 							}
-						}
 
-						$this->choices = $choices;
+							break;
 
-						break;
-					case 'tags':
-						$args = array(
-							'hide_empty' => false,
-							'taxonomy'   => $this->data_source_name ?? 'post_tag',
-						);
-						$tags = get_terms( $args );
+						case 'tags':
+							$args  = array(
+								'taxonomy'   => 'post_tag',
+								'hide_empty' => false,
+								'include'    => $selected_ids,
+							);
+							$terms = get_terms( $args );
 
-						$choices = array();
-
-						if ( ! empty( $tags ) ) {
-
-							foreach ( $tags as $tag ) {
-								if ( ! is_object( $tag ) ) {
-									continue;
+							if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+								foreach ( $terms as $term ) {
+									$choices[ $term->term_id ] = $term->name;
 								}
-								$choices[ $tag->slug ] = $tag->name;
 							}
-						}
 
-						$this->choices = $choices;
+							break;
 
-						break;
-					case 'page':
-						$pages = get_pages();
+						case 'page':
+							$pages = get_posts(
+								array(
+									'post_type'      => 'page',
+									'post_status'    => 'publish',
+									'posts_per_page' => count( $selected_ids ),
+									'post__in'       => $selected_ids,
+									'orderby'        => 'post__in',
+								)
+							);
 
-						$choices = array();
-
-						if ( ! empty( $pages ) ) {
-
-							foreach ( $pages as $page ) {
-								$choices[ $page->ID ] = $page->post_title;
+							if ( ! empty( $pages ) ) {
+								foreach ( $pages as $page ) {
+									$choices[ $page->ID ] = $page->post_title;
+								}
 							}
-						}
+							break;
+						case 'post':
+							$posts = get_posts(
+								array(
+									'post_type'      => 'post',
+									'post_status'    => 'publish',
+									'posts_per_page' => count( $selected_ids ),
+									'post__in'       => $selected_ids,
+									'orderby'        => 'post__in',
+								)
+							);
 
-						$this->choices = $choices;
+							if ( ! empty( $posts ) ) {
+								foreach ( $posts as $post ) {
+									$choices[ $post->ID ] = $post->post_title;
+								}
+							}
 
-						break;
+							break;
 
-					default:
-						// code...
-						break;
+						default:
+							if( post_type_exists( $this->data_source ) ) {
+								$posts = get_posts(
+									array(
+										'post_type'      => $this->data_source,
+										'post_status'    => 'publish',
+										'posts_per_page' => count( $selected_ids ),
+										'post__in'       => $selected_ids,
+										'orderby'        => 'post__in',
+									)
+								);
+
+								if ( ! empty( $posts ) ) {
+									foreach ( $posts as $post ) {
+										$choices[ $post->ID ] = $post->post_title;
+									}
+								}
+							}
+							break;
+					}
+					$this->choices = $choices;
 				}
 			}
 		}
@@ -161,6 +198,9 @@ if ( ! class_exists( 'Shopwell_Customizer_Control_Select' ) ) :
 			$this->json['placeholder'] = $this->placeholder;
 			$this->json['is_select2']  = $this->is_select2;
 			$this->json['multiple']    = $this->multiple ? ' multiple="multiple"' : '';
+			$this->json['data_source']      = $this->data_source;
+			$this->json['data_source_name'] = $this->data_source_name;
+			$this->json['nonce']            = wp_create_nonce( 'shopwell_customizer_nonce' );
 
 			if ( $this->multiple ) {
 				$this->json['value'] = implode( ',', (array) $this->json['value'] );
@@ -237,26 +277,28 @@ if ( ! class_exists( 'Shopwell_Customizer_Control_Select' ) ) :
 
 				<select class="shopwell-select-control" {{{ data.link }}}{{{ data.multiple }}}>
 
-					<# if ( data.is_select2 ) { #>
-
-						<# _.each( data.choices, function( label, choice ) {
-							if(data.value) { #>
-
-							<option value="{{ choice }}" <# if ( -1 !== data.value.indexOf( choice ) ) { #> selected="selected" <# } #>>{{ label }}</option>
-
-						<# } } ) #>
-
-					<#  } else { #>
+					<# if ( ! data.is_select2 ) { #>
+						<!-- Regular select: render all choices -->
 						<# for ( key in data.choices ) { #>
-							<option value="{{ key }}" <# if ( key === data.value ) { #> checked="checked" <# } #>>{{ data.choices[ key ] }}</option>
+							<option title="{{ data.choices[ key ] }}" value="{{ key }}" <# if ( key === data.value ) { #> selected="selected" <# } #>>{{ data.choices[ key ] }}</option>
+						<# } #>
+					<# } else { #>
+						<!-- Select2: render selected values only (rest loaded via AJAX or static) -->
+						<# if ( data.value ) { #>
+							<# var selectedChoices = data.value ? data.value.toString().split( ',' ) : []; #>
+							<# _.each( selectedChoices, function( choice ) { #>
+								<# var label = data.choices && data.choices[ choice ] ? data.choices[ choice ] : choice; #>
+								<option value="{{ choice }}" selected="selected">{{ label }}</option>
+							<# } ) #>
 						<# } #>
 					<# } #>
+
 				</select>
 
 			</label>
 
 			</div><!-- END .shopwell-control-wrapper -->
-																							<?php
+			<?php
 		}
 	}
 endif;

@@ -26,7 +26,7 @@ class Helper {
 	 */
 	public static function get_post_ids_by_tags( $args = array() ) {
 		// Only allow getting by tag.
-		if ( empty( $args['tag'] ) ) {
+		if ( empty( $args['tag__in'] ) ) {
 			return false;
 		}
 

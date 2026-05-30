@@ -2,11 +2,11 @@
 Contributors: peregrinethemes
 Tags: e-commerce, blog, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, full-width-template, sticky-post, post-formats, theme-options, one-column, two-columns, left-sidebar, right-sidebar, rtl-language-support, threaded-comments, translation-ready
 Requires at least: 5.0
-Tested up to: 6.9
-Requires PHP: 7.0
+Tested up to: 7.0
+Requires PHP: 7.1
 License: GNU General Public License v2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0.14
+Stable tag: 1.0.15
 
 Responsive and highly customizable e-commerce theme that makes it easy for anyone to create their perfect online store or marketplace.
 
@@ -27,6 +27,11 @@ Shopwell WordPress Theme, Copyright (c) 2025, Peregrinethemes
 Shopwell is distributed under the terms of the GNU GPLs
 
 == Changelog ==
+
+= 1.0.15 - 30 May 2026 =
+* [Improved]: Updated legacy customizer settings such as Tags to use IDs instead of slugs for improved consistency and reliability.
+* [New]: Select customizer control such as Tags are now uses Ajax loading for better UX.
+* [Updated]: WooCommerce cart template.
 
 = 1.0.14 - 24 April 2026 =
 * [Fixed]: Sponsor 'swiper' infinite loop issue fixed.

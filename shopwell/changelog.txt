@@ -1,3 +1,8 @@
+= 1.0.15 - 30 May 2026 =
+* [Improved]: Updated legacy customizer settings such as Tags to use IDs instead of slugs for improved consistency and reliability.
+* [New]: Select customizer control such as Tags are now uses Ajax loading for better UX.
+* [Updated]: WooCommerce cart template.
+
 = 1.0.14 - 24 April 2026 =
 * [Fixed]: Sponsor 'swiper' infinite loop issue fixed.
 

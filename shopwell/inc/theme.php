@@ -39,7 +39,7 @@ final class Theme {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	public $version = '1.0.14';
+	public $version = '1.0.15';
 
 	/**
 	 * Initiator
@@ -118,6 +118,7 @@ final class Theme {
 		add_action( 'init', array( $this, 'loads' ), 50 );
 		add_action( 'template_redirect', array( $this, 'load_post_types' ), 30 );
 		\Shopwell\Admin::instance();
+		\Shopwell\Customizer\Settings_Migration::instance();
 
 		if ( class_exists( 'WooCommerce' ) ) {
 			\Shopwell\WooCommerce::instance();
@@ -138,12 +139,14 @@ final class Theme {
 	 */
 	public function loads() {
 		\Shopwell\Customizer\Settings::instance();
+
 		\Shopwell\Frontend::instance();
 
 		\Shopwell\Header\Manager::instance();
 
 		\Shopwell\Page_Header::instance();
 		\Shopwell\Search_Ajax::instance();
+		\Shopwell\Select2_Ajax::instance();
 
 		\Shopwell\Blog\Manager::instance();
 

@@ -202,7 +202,7 @@ class Main {
 		$args = \Shopwell\Blog\Helper::get_post_ids_by_tags(
 			array(
 				'posts_per_page' => $number_item,
-				'tag'            => \Shopwell\Helper::get_option( 'blog_trending_tag' ),
+				'tag__in'            => \Shopwell\Helper::get_option( 'blog_trending_tag' ),
 			)
 		);
 
@@ -305,7 +305,7 @@ class Main {
 		$featured_post_ids = \Shopwell\Blog\Helper::get_post_ids_by_tags(
 			array(
 				'posts_per_page' => \Shopwell\Helper::get_option( 'blog_featured_posts_total' ),
-				'tag'            => \Shopwell\Helper::get_option( 'blog_featured_tag' ),
+				'tag__in'            => \Shopwell\Helper::get_option( 'blog_featured_tag' ),
 			)
 		);
 
@@ -318,7 +318,7 @@ class Main {
 		if ( ! apply_filters( 'shopwell_featured_posts_duplicate', false ) && \Shopwell\Helper::get_option( 'blog_trending_posts' ) ) {
 			$trending_post_ids = \Shopwell\Blog\Helper::get_post_ids_by_tags(
 				array(
-					'tag' => \Shopwell\Helper::get_option( 'blog_trending_tag' ),
+					'tag__in' => \Shopwell\Helper::get_option( 'blog_trending_tag' ),
 				)
 			);
 
