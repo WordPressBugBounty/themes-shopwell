@@ -57,20 +57,24 @@ class Search_Ajax {
 	 * @return void
 	 */
 	public function instance_search_form() {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$response    = array();
-		$title_html  = $view_more = '';
+		$title_html  = '';
+		$view_more   = '';
 		$class_list  = 'result-list-found';
-		$search_type = $_POST['search_type'];
+		$search_type = ! empty( $_POST['search_type'] ) ? sanitize_text_field( wp_unslash( $_POST['search_type'] ) ) : '';
+		$query_term  = ! empty( $_POST['term'] ) ? sanitize_text_field( wp_unslash( $_POST['term'] ) ) : '';
+		$limit       = ! empty( $_POST['ajax_search_number'] ) ? absint( $_POST['ajax_search_number'] ) : 0;
 
-		if ( $search_type == 'adaptive' ) {
+		if ( 'adaptive' === $search_type ) {
 			if ( Helper::is_blog() || is_singular( 'post' ) ) {
 				$search_type = 'post';
 			} else {
 				$search_type = 'product';
 			}
 		}
-		$view_all_url = home_url( '/' ) . '?s=' . trim( $_POST['term'] );
-		if ( $search_type == 'product' ) {
+		$view_all_url = home_url( '/' ) . '?s=' . trim( $query_term );
+		if ( 'product' === $search_type ) {
 			$response      = $this->instance_search_products_result();
 			$view_all_url .= '&post_type=product';
 		} else {
@@ -93,14 +97,15 @@ class Search_Ajax {
 			$class_list = 'result-list-not-found';
 		}
 
-		if ( count( $response ) > intval( $_POST['ajax_search_number'] ) ) {
+		if ( count( $response ) > $limit ) {
 			$view_more = sprintf( '<div class="list-item view-more"><a class="shopwell-button shopwell-button--subtle button-normal" href="%s">%s</a></div>', esc_url( $view_all_url ), esc_html__( 'View All', 'shopwell' ) );
 		}
 
 		$output = sprintf( '%s<div class="search-list %s">%s%s</div>', $title_html, esc_attr( $class_list ), implode( ' ', $response ), $view_more );
 
 		wp_send_json_success( array( $output ) );
-		die();
+		wp_die();
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -180,7 +185,7 @@ class Search_Ajax {
 				'value'   => 'instock',
 				'compare' => '=',
 			);
-			
+
 			$args['meta_query'] = isset(  $args['meta_query'] ) ? $args['meta_query'] : array();
 			$args['meta_query'][] = $stock_meta_query;
 

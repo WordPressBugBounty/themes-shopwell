@@ -2258,16 +2258,26 @@
 		});
 
 
+		// Use JS to remove empty params from URL.
 		$( '.update-preferences' ).on( 'click', function(e) {
+			e.preventDefault();
+
 			var $form = $(this).closest( 'form' ),
 				url   = $form.attr( 'action' );
 
 			$form.find( '.language_select' ).prop('disabled', true);
 
-			if( url.indexOf( '?' ) != -1 ) {
-				e.preventDefault();
-				window.location.href = url + '&' + $form.serialize();
-			}
+			var paramsArr = $form.serializeArray();
+			var query     = paramsArr
+				.filter( function (item) {
+					return item.value !== undefined && item.value !== null && item.value !== ''; }
+				)
+				.map( function (item) {
+					return encodeURIComponent( item.name ) + '=' + encodeURIComponent( item.value ); }
+				)
+				.join( '&' );
+			var separator = url.indexOf( '?' ) !== -1 ? '&' : '?';
+			window.location.href = url + (query ? separator + query : '');
 		});
 	};
 

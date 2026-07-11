@@ -46,6 +46,12 @@ class WPML {
 
 		add_filter( 'wpml_pb_shortcode_encode', array( $this, 'shortcode_encode_urlencoded_json' ), 10, 3 );
 		add_filter( 'wpml_pb_shortcode_decode', array( $this, 'shortcode_decode_urlencoded_json' ), 10, 3 );
+
+		add_filter( 'shopwell_get_footer_layout', array( $this, 'translate_footer_layout' ), 999 );
+		add_filter( 'shopwell_get_footer_mobile_layout', array( $this, 'translate_footer_layout' ), 999 );
+
+		add_filter( 'option_order_tracking_page_id', array( $this, 'translate_option_page_id' ), 999 );
+		add_filter( 'option_help_center_page_id', array( $this, 'translate_option_page_id' ), 999 );
 	}
 
 	/**
@@ -193,5 +199,34 @@ class WPML {
 		}
 
 		return $string;
+	}
+
+	/**
+	 * Get the translated footer layout template ID
+	 *
+	 * @param int $footer_id
+	 * @return int
+	 */
+	public function translate_footer_layout( $footer_id ) {
+		$footer_id = apply_filters( 'wpml_object_id', intval( $footer_id ), 'shopwell_footer', true );
+
+		return $footer_id;
+	}
+
+	/**
+	 * Get the translated page Id of settings for pages.
+	 * Include: Order Tracking, Help Center
+	 *
+	 * @param int $page_id
+	 * @return int
+	 */
+	public function translate_option_page_id( $page_id ) {
+		if ( empty( $page_id ) ) {
+			return $page_id;
+		}
+
+		$page_id = apply_filters( 'wpml_object_id', intval( $page_id ), 'page', true );
+
+		return $page_id;
 	}
 }

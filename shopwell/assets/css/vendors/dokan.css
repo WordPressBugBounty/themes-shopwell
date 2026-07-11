@@ -198,6 +198,20 @@
   margin-right: 5px;
 }
 
+.dokan-dashboard input[type=checkbox] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.dokan-dashboard input[type=checkbox]:focus {
+  outline: none;
+}
+
 .dokan-vendor-rating .dashicons,
 .dokan-seller-rating .dashicons {
   width: 10px;
@@ -1477,15 +1491,107 @@ form.dokan-vendor-register input[type=submit].dokan-btn-theme {
   padding: 4px 6px;
   height: 34px;
 }
+.dokan-dashboard .site-content input[type=text]:hover,
+.dokan-dashboard .site-content input[type=text]:active,
+.dokan-dashboard .site-content input[type=text]:focus,
+.dokan-dashboard .site-content input[type=email]:hover,
+.dokan-dashboard .site-content input[type=email]:active,
+.dokan-dashboard .site-content input[type=email]:focus,
+.dokan-dashboard .site-content input[type=url]:hover,
+.dokan-dashboard .site-content input[type=url]:active,
+.dokan-dashboard .site-content input[type=url]:focus,
+.dokan-dashboard .site-content input[type=password]:hover,
+.dokan-dashboard .site-content input[type=password]:active,
+.dokan-dashboard .site-content input[type=password]:focus,
+.dokan-dashboard .site-content input[type=search]:hover,
+.dokan-dashboard .site-content input[type=search]:active,
+.dokan-dashboard .site-content input[type=search]:focus,
+.dokan-dashboard .site-content input[type=number]:hover,
+.dokan-dashboard .site-content input[type=number]:active,
+.dokan-dashboard .site-content input[type=number]:focus,
+.dokan-dashboard .site-content input[type=tel]:hover,
+.dokan-dashboard .site-content input[type=tel]:active,
+.dokan-dashboard .site-content input[type=tel]:focus,
+.dokan-dashboard .site-content input[type=range]:hover,
+.dokan-dashboard .site-content input[type=range]:active,
+.dokan-dashboard .site-content input[type=range]:focus,
+.dokan-dashboard .site-content input[type=date]:hover,
+.dokan-dashboard .site-content input[type=date]:active,
+.dokan-dashboard .site-content input[type=date]:focus,
+.dokan-dashboard .site-content input[type=month]:hover,
+.dokan-dashboard .site-content input[type=month]:active,
+.dokan-dashboard .site-content input[type=month]:focus,
+.dokan-dashboard .site-content input[type=week]:hover,
+.dokan-dashboard .site-content input[type=week]:active,
+.dokan-dashboard .site-content input[type=week]:focus,
+.dokan-dashboard .site-content input[type=time]:hover,
+.dokan-dashboard .site-content input[type=time]:active,
+.dokan-dashboard .site-content input[type=time]:focus,
+.dokan-dashboard .site-content input[type=datetime]:hover,
+.dokan-dashboard .site-content input[type=datetime]:active,
+.dokan-dashboard .site-content input[type=datetime]:focus,
+.dokan-dashboard .site-content input[type=datetime-local]:hover,
+.dokan-dashboard .site-content input[type=datetime-local]:active,
+.dokan-dashboard .site-content input[type=datetime-local]:focus,
+.dokan-dashboard .site-content input[type=color]:hover,
+.dokan-dashboard .site-content input[type=color]:active,
+.dokan-dashboard .site-content input[type=color]:focus,
+.dokan-dashboard .site-content textarea:hover,
+.dokan-dashboard .site-content textarea:active,
+.dokan-dashboard .site-content textarea:focus,
+.dokan-dashboard .site-content select:hover,
+.dokan-dashboard .site-content select:active,
+.dokan-dashboard .site-content select:focus,
+.dokan-dashboard .site-content span.select2 .select2-selection--single:hover,
+.dokan-dashboard .site-content span.select2 .select2-selection--single:active,
+.dokan-dashboard .site-content span.select2 .select2-selection--single:focus,
+.dokan-dashboard .site-content .shopwell-input--default:hover,
+.dokan-dashboard .site-content .shopwell-input--default:active,
+.dokan-dashboard .site-content .shopwell-input--default:focus,
+.dokan-dashboard .site-content .shopwell-type--input-text:hover,
+.dokan-dashboard .site-content .shopwell-type--input-text:active,
+.dokan-dashboard .site-content .shopwell-type--input-text:focus,
+.dokan-dashboard .site-content .dokan-form-group input:hover,
+.dokan-dashboard .site-content .dokan-form-group input:active,
+.dokan-dashboard .site-content .dokan-form-group input:focus {
+  border-color: #1d2128;
+  box-shadow: 0px 4px 8px 0px var(--shopwell-input__box-shadow);
+}
 .dokan-dashboard .site-content select {
   padding-right: 45px;
 }
-.dokan-dashboard .site-content button, .dokan-dashboard .site-content input[type=button], .dokan-dashboard .site-content input[type=reset], .dokan-dashboard .site-content input[type=submit], .dokan-dashboard .site-content .button {
+.dokan-dashboard .site-content .select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 28px;
+}
+.dokan-dashboard .site-content .select2-container--default .select2-selection--multiple {
+  border: none;
+  min-height: unset;
+}
+.dokan-dashboard .site-content .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  padding: 0;
+}
+.dokan-dashboard .site-content button,
+.dokan-dashboard .site-content input[type=button],
+.dokan-dashboard .site-content input[type=reset],
+.dokan-dashboard .site-content input[type=submit],
+.dokan-dashboard .site-content .button {
   min-width: auto;
   border-radius: 0;
 }
-.dokan-dashboard .site-content .product-edit-new-container label input[type=checkbox] {
-  margin-right: 15px;
+.dokan-dashboard .site-content input[type=checkbox] {
+  -webkit-appearance: none !important;
+     -moz-appearance: none !important;
+          appearance: none !important;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+.dokan-dashboard .site-content input[type=checkbox]:focus {
+  outline: none;
+}
+.dokan-dashboard .site-content input[type=checkbox]:checked {
+  background-color: rgba(0, 0, 0, 0);
 }
 .dokan-dashboard .site-content .select2-container {
   height: auto;
@@ -1493,15 +1599,15 @@ form.dokan-vendor-register input[type=submit].dokan-btn-theme {
 .dokan-dashboard .site-content .select2-container .select2-search__field {
   height: auto;
 }
-.dokan-dashboard .site-content .select2-container--default .select2-selection--single .select2-selection__rendered {
-  line-height: 28px;
-}
 .dokan-dashboard .site-content .clear {
   clear: both;
 }
 
 .dokan-dashboard-content .woocommerce-layout__header {
   z-index: auto;
+}
+.dokan-dashboard-content .product-edit-container .wp-editor-wrap {
+  border: none;
 }
 
 .rtl.single-product .dokan-vendor-info-wrap .dokan-vendor-image,

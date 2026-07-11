@@ -112,16 +112,14 @@ class Options {
 
 			// General > Share socials
 			'shopwell_post_sharing_socials'                => array(
-				'facebook'   => true,
-				'twitter'    => true,
-				'googleplus' => true,
-				'pinterest'  => true,
-				'tumblr'     => true,
-				'reddit'     => true,
-				'telegram'   => true,
-				'email'      => true,
+				'facebook'  => true,
+				'twitter'   => true,
+				'pinterest' => true,
+				'tumblr'    => true,
+				'reddit'    => true,
+				'telegram'  => true,
+				'email'     => true,
 			),
-			'shopwell_post_sharing_whatsapp_number'        => '',
 
 			// Header > Header layout
 			'shopwell_header_present'                      => 'prebuild',

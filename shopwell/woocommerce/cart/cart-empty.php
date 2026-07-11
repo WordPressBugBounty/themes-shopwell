@@ -10,13 +10,12 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.woocommerce.com/document/template-structure/
+ * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
  * @version 7.0.1
  */
 
 defined( 'ABSPATH' ) || exit;
-
 
 /*
  * @hooked wc_empty_cart_message - 10
@@ -41,6 +40,7 @@ do_action( 'woocommerce_cart_is_empty' );
 		</p>
 	<?php endif; ?>
 
+	<?php if ( ! is_user_logged_in() ) : ?>
 	<p class="empty-cart-button-sign-in">
 		<a class="button wc-backward" href="<?php echo esc_url( apply_filters( 'woocommerce_sign_in_redirect', wc_get_page_permalink( 'myaccount' ) ) ); ?>">
 			<?php
@@ -54,4 +54,5 @@ do_action( 'woocommerce_cart_is_empty' );
 			?>
 		</a>
 	</p>
+	<?php endif; ?>
 </div>

@@ -139,13 +139,36 @@ class Icon {
 	);
 
 	/**
+	 * Output the SVG code for the specified icon
+	 *
+	 * @since 1.6.1
+	 *
+	 * @param string $icon Icon name.
+	 * @param string $group Icon group.
+	 * @param array  $attr The icon attributes.
+	 */
+	public static function render( $icon, $group = 'ui', $attr = array() ) {
+		$svg          = self::get_svg( $icon, $group, $attr );
+		$allowed_tags = self::get_svg_allowed_tags();
+
+		$allowed_tags['span'] = array(
+			'align' => true,
+			'class' => true,
+			'id'    => true,
+			'style' => true,
+		);
+
+		echo wp_kses( $svg, $allowed_tags );
+	}
+
+	/**
 	 * Get the SVG code for the specified icon
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param string $icon Icon name.
 	 * @param string $group Icon group.
-	 * @param array  $size The icon attributes.
+	 * @param array  $attr The icon attributes.
 	 *
 	 * @return string
 	 */
@@ -210,6 +233,17 @@ class Icon {
 	 * @return string
 	 */
 	public static function sanitize_svg( $svg ) {
+		return wp_kses( $svg, self::get_svg_allowed_tags() );
+	}
+
+	/**
+	 * Get the allowed SVG tags and attributes.
+	 *
+	 * @since 1.6.1
+	 *
+	 * @return array
+	 */
+	protected static function get_svg_allowed_tags() {
 		$allowed   = array();
 		$whitelist = array(
 			'span'           => array( 'class' ),
@@ -255,6 +289,6 @@ class Icon {
 			}
 		}
 
-		return wp_kses( $svg, $allowed );
+		return $allowed;
 	}
 }

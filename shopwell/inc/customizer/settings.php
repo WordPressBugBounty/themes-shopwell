@@ -216,7 +216,7 @@ class Settings {
 				'panel' => 'shopwell_general',
 			),
 			'shopwell_share_socials'         => array(
-				'title' => esc_html__( 'Share Socials', 'shopwell' ),
+				'title' => esc_html__( 'Social Sharing', 'shopwell' ),
 				'panel' => 'shopwell_general',
 			),
 			'shopwell_typo_main'             => array(

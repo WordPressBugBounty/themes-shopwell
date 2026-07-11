@@ -9,8 +9,6 @@ namespace Shopwell\Header;
 
 use Shopwell\Helper;
 
-use function WPML\FP\Strings\replace;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -911,13 +909,21 @@ class Main {
 			$args['cart_classes'] .= ' shopwell-button--' . $args['cart_type'];
 		}
 
-		if ( Helper::get_option( 'header_cart_icon_behaviour' ) == 'panel' ) {
+		$behaviour = Helper::get_option( 'header_cart_icon_behaviour' );
+
+		if ( $behaviour == 'panel' ) {
 			$args['cart_data_toggle'] = 'off-canvas';
 			\Shopwell\Theme::set_prop( 'panels', 'cart' );
-		} if ( Helper::get_option( 'header_cart_icon_behaviour' ) == 'page' ) {
-			$args['cart_data_toggle'] = 'off-canvas';
+		} elseif ( $behaviour == 'page' ) {
+			$args['cart_data_toggle'] = '';
 		} else {
 			$args['cart_classes'] .= ' header-button-dropdown';
+		}
+
+		// Disable dropdown/panel on cart and checkout page
+		if ( function_exists( 'WC' ) && ( is_cart() || is_checkout() ) ) {
+			$args['cart_data_toggle'] = '';
+			$args['cart_classes']     = str_replace( 'header-button-dropdown', '', $args['cart_classes'] );
 		}
 
 		return $args;

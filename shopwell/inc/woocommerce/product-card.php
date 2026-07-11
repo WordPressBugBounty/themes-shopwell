@@ -620,7 +620,7 @@ class Product_Card {
 				echo '</div>';
 				break;
 
-			case 'zoom';
+			case 'zoom':
 				echo '<div class="product-thumbnail product-thumbnails--zoom">';
 					$image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
 

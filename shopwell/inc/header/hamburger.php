@@ -125,7 +125,7 @@ class Hamburger {
 							'<a class="shopwell-button shopwell-button--subtle shopwell-button--color-black shopwell-button--medium" href="%s">
 								<span class="shopwell-button__text">%s</span>
 							</a>',
-							wc_get_page_permalink( 'shop' ),
+							esc_url( wc_get_page_permalink( 'shop' ) ),
 							esc_html__( 'See All', 'shopwell' )
 						);
 					} else {

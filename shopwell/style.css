@@ -5,7 +5,7 @@ Author: Peregrine Themes
 Author URI: https://peregrine-themes.com
 Theme URI: https://peregrine-themes.com/shopwell
 Description: ShopWell is a fast, lightweight, and customizable WooCommerce theme for online stores and multivendor marketplaces. It offers mobile-first design, flexible layouts, sticky navigation, and customizable headers and footers. It supports popular page builders like Elementor, Gutenberg, Brizy, and Divi. Compatible with WCBoost – Wishlist, Compare, Variation Swatches, Dokan, WCFM, Contact Form 7, and MailChimp. The theme is SEO-friendly, WPML-compatible, and RTL-ready. Live preview: https://peregrine-themes.com/shopwell/#demos
-Version: 1.0.15
+Version: 1.0.16
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.1
@@ -6330,7 +6330,7 @@ ul.menu .col-1_1 {
   margin: 0;
   width: 32px;
   height: 32px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   /*rtl:raw:
@@ -6339,6 +6339,13 @@ ul.menu .col-1_1 {
 }
 .header-category--hamburger .header-category__menu > ul > li > a .menu-item-icon {
   color: inherit;
+}
+.header-category--hamburger .header-category__menu > ul > li > a img.menu-item-icon {
+  width: 40px;
+  height: 40px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .header-category--hamburger .header-category__menu > ul > li .toggle-submenu {
   width: 32px;

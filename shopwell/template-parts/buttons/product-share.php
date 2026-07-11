@@ -15,7 +15,7 @@ if ( ! empty( $args ) && ! empty( $args['text'] ) ) {
 }
 ?>
 
-<a href="#" class="shopwell-button  shopwell-button--text shopwell-button--product-share" data-toggle="modal" data-target="socials-popup">
+<a href="#" class="shopwell-button shopwell-button--text shopwell-button--product-share" data-toggle="modal" data-target="socials-popup" role="button">
 	<span class="shopwell-button__icon"><?php echo \Shopwell\Icon::get_svg( $icon ); ?></span>
 	<span class="shopwell-button__text "><?php echo esc_html( $text ); ?></span>
 </a>

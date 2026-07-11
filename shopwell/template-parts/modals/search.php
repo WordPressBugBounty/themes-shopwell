@@ -19,7 +19,7 @@
 					echo '<div class="header-search__results search-results woocommerce"></div>';
 				}
 				?>
-				<input type="hidden" name="post_type" class="search-modal__post-type" value="<?php echo isset( $_GET['post_type'] ) && ! empty( $_GET['post_type'] ) ? esc_attr( $_GET['post_type'] ) : esc_attr( \Shopwell\Header\Search::type() ); ?>">
+				<input type="hidden" name="post_type" class="search-modal__post-type" value="<?php echo ! empty( $_GET['post_type'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['post_type'] ) ) ) : esc_attr( \Shopwell\Header\Search::type() ); ?>">
 			</form>
 		</div>
 

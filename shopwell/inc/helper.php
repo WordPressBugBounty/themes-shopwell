@@ -666,7 +666,7 @@ class Helper {
 			echo '</ul>';
 		} else {
 			?>
-			<label><?php esc_html_e( 'Language', 'shopwell' ); ?></label>
+			<label for="shopwell_language"><?php esc_html_e( 'Language', 'shopwell' ); ?></label>
 			<select name="language" id="shopwell_language" class="language_select preferences_select">
 				<?php
 				foreach ( (array) $languages as $key => $language ) {
@@ -809,7 +809,7 @@ class Helper {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public static function share_socials() {
 		if ( ! class_exists( '\Shopwell\Addons\Helper' ) && ! method_exists( '\Shopwell\Addons\Helper', 'share_link' ) ) {
@@ -819,24 +819,20 @@ class Helper {
 		$args    = array();
 		$socials = (array) self::get_option( 'post_sharing_socials' );
 		$socials = array_keys( $socials, true, true );
-		if ( ( ! empty( $socials ) ) ) {
-			$output = array();
 
-			foreach ( $socials as $social => $value ) {
-				if ( $value == 'whatsapp' ) {
-					$args['whatsapp_number'] = self::get_option( 'post_sharing_whatsapp_number' );
-				}
-
-				if ( $value == 'facebook' ) {
-					$args[ $value ]['icon'] = 'facebook-f';
-				}
-
-				$args[ $value ]['class'] = 'shopwell-socials--bg shopwell-socials--' . $value;
-
-				$output[] = \Shopwell\Addons\Helper::share_link( $value, $args );
-			}
-			return sprintf( '<div class="post__socials-share">%s</div>', implode( '', $output ) );
+		if ( empty( $socials ) ) {
+			return '';
 		}
+
+		$output = array();
+
+		foreach ( $socials as $social => $value ) {
+			$args[ $value ]['class'] = 'shopwell-socials--bg shopwell-socials--' . $value;
+
+			$output[] = \Shopwell\Addons\Helper::share_link( $value, $args );
+		}
+
+		return sprintf( '<div class="post__socials-share">%s</div>', implode( '', $output ) );
 	}
 
 	/**

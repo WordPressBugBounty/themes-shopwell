@@ -125,16 +125,27 @@ class QuickView {
 	/**
 	 * Product quick view template.
 	 *
-	 * @return string
+	 * @return void
 	 */
 	public static function quick_view() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( empty( $_POST['product_id'] ) ) {
 			wp_send_json_error( esc_html__( 'No product.', 'shopwell' ) );
 			exit;
 		}
 
-		$post_object = get_post( $_POST['product_id'] );
-		if ( ! $post_object || ! in_array( $post_object->post_type, array( 'product', 'product_variation', true ) ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$product_id  = absint( $_POST['product_id'] );
+		$post_object = get_post( $product_id );
+
+		if ( ! $post_object ) {
+			wp_send_json_error( esc_html__( 'Invalid product.', 'shopwell' ) );
+			exit;
+		}
+
+		$_product = wc_get_product( $product_id );
+
+		if ( ! $_product || ! $_product->exists() || ! $_product->is_visible() ) {
 			wp_send_json_error( esc_html__( 'Invalid product.', 'shopwell' ) );
 			exit;
 		}

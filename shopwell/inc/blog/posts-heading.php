@@ -39,7 +39,7 @@ class Posts_Heading {
 	public static function recent_heading() {
 		printf(
 			'<h4 class="shopwell-recent-post__heading">%s</h4>',
-			apply_filters( 'shopwell_recent_posts_heading', esc_html__( 'Recent Posts', 'shopwell' ) )
+			esc_html( apply_filters( 'shopwell_recent_posts_heading', __( 'Recent Posts', 'shopwell' ) ) )
 		);
 	}
 
@@ -51,9 +51,10 @@ class Posts_Heading {
 	 * @return void
 	 */
 	public static function group() {
-		$current_tab = $term_link = '';
-		if ( isset( $_GET['posts_group'] ) && ! empty( $_GET['posts_group'] ) ) {
-			$current_tab = $_GET['posts_group'];
+		$current_tab = '';
+		$term_link   = '';
+		if ( ! empty( $_GET['posts_group'] ) ) {
+			$current_tab = sanitize_text_field( wp_unslash( $_GET['posts_group'] ) );
 		}
 
 		if ( is_category() ) {
@@ -71,14 +72,14 @@ class Posts_Heading {
 					<li><a class="featured %s" href="%s">%s</a></li>
 				</ul>
 			</div>',
-			$current_tab == '' ? 'active' : '',
+			'' === $current_tab ? 'active' : '',
 			esc_url( $term_link ),
 			esc_html__( 'Recent Posts', 'shopwell' ),
-			$current_tab == 'popular' ? 'active' : '',
-			esc_url( $term_link ) . '?posts_group=popular',
+			'popular' === $current_tab ? 'active' : '',
+			esc_url( add_query_arg( 'posts_group', 'popular', $term_link ) ),
 			esc_html__( 'Popular Posts', 'shopwell' ),
-			$current_tab == 'featured' ? 'active' : '',
-			esc_url( $term_link ) . '?posts_group=featured',
+			'featured' === $current_tab ? 'active' : '',
+			esc_url( add_query_arg( 'posts_group', 'featured', $term_link ) ),
 			esc_html__( 'Featured Posts', 'shopwell' )
 		);
 	}

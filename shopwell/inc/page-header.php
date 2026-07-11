@@ -197,7 +197,11 @@ class Page_Header {
 			return;
 		}
 
-		echo apply_filters( 'shopwell_page_header_description', '' );
+		$desc = apply_filters( 'shopwell_page_header_description', '' );
+
+		if ( ! empty( $desc ) ) {
+			echo do_shortcode( $desc );
+		}
 	}
 
 	/**
