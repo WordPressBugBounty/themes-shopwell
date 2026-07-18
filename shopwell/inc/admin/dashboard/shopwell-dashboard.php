@@ -62,6 +62,30 @@ if ( ! class_exists( 'Shopwell_Dashboard' ) ) :
 			 */
 			add_action( 'wp_ajax_hester-plugin-activate', array( $this, 'activate_plugin' ) );
 			add_action( 'wp_ajax_hester-plugin-deactivate', array( $this, 'deactivate_plugin' ) );
+			add_action( 'wp_ajax_shopwell-plugins-bulk-activate', array( $this, 'bulk_activate_plugins' ) );
+
+			/**
+			 * WP core only raises the execution time limit AFTER a plugin zip has
+			 * downloaded (see WP_Upgrader::install_package()), so a slow connection
+			 * to WordPress.org can still hit max_execution_time mid-download. Raise
+			 * it ourselves before core's own install/update AJAX handlers run.
+			 */
+			add_action( 'wp_ajax_install-plugin', array( $this, 'raise_install_time_limit' ), 0 );
+			add_action( 'wp_ajax_update-plugin', array( $this, 'raise_install_time_limit' ), 0 );
+		}
+
+		/**
+		 * Raise the PHP execution time limit before a plugin install/update
+		 * request starts, so a slow plugin-zip download doesn't get killed
+		 * mid-transfer. No-ops on hosts where set_time_limit() is disabled.
+		 *
+		 * @since 1.0.17
+		 */
+		public function raise_install_time_limit() {
+
+			if ( function_exists( 'set_time_limit' ) ) {
+				set_time_limit( 300 );
+			}
 		}
 
 		/**
@@ -255,12 +279,62 @@ if ( ! class_exists( 'Shopwell_Dashboard' ) ) :
 			// Render dashboard navigation.
 			$this->render_navigation();
 
-			$plugins = shopwell_plugin_utilities()->get_recommended_plugins();
+			$plugins       = shopwell_plugin_utilities()->get_recommended_plugins();
+			$not_installed = shopwell_plugin_utilities()->get_not_installed_plugins( $plugins );
+			$not_active    = shopwell_plugin_utilities()->get_deactivated_plugins( $plugins );
+			$all_active    = false;
+
+			// Not everything is installed yet - a single click installs & activates everything needed.
+			if ( ! empty( $not_installed ) ) {
+
+				$bulk_text = esc_html__( 'Install & Activate All', 'shopwell' );
+				$bulk_data = array(
+					'shopwell-bulk-action'   => 'install',
+					'shopwell-install-list'  => wp_json_encode( array_keys( $not_installed ) ),
+					'shopwell-activate-list' => wp_json_encode( array_keys( array_diff_key( $not_active, $not_installed ) ) ),
+					'shopwell-plugin-names'  => wp_json_encode( wp_list_pluck( $not_active, 'name' ) ),
+				);
+			} elseif ( ! empty( $not_active ) ) {
+
+				// Everything is already installed, only activation is left.
+				$bulk_text = esc_html__( 'Activate All', 'shopwell' );
+				$bulk_data = array(
+					'shopwell-bulk-action'   => 'activate',
+					'shopwell-activate-list' => wp_json_encode( array_keys( $not_active ) ),
+					'shopwell-plugin-names'  => wp_json_encode( wp_list_pluck( $not_active, 'name' ) ),
+				);
+			} else {
+				$bulk_text  = '';
+				$bulk_data  = array();
+				$all_active = is_array( $plugins ) && ! empty( $plugins );
+			}
 			?>
 			<div class="hester-container">
 
 				<div class="hester-section-title">
 					<h2 class="hester-section-title"><?php esc_html_e( 'Recommended Plugins', 'shopwell' ); ?></h2>
+
+					<?php if ( $bulk_text ) : ?>
+						<div class="hester-filters">
+							<a href="#" class="hester-btn primary shopwell-bulk-plugins-action"
+								<?php
+								foreach ( $bulk_data as $data_key => $data_value ) {
+									echo ' data-' . esc_attr( $data_key ) . '="' . esc_attr( $data_value ) . '"'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+								}
+								?>
+								role="button">
+								<span class="shopwell-notice-spinner"></span>
+								<span class="shopwell-notice-action-text" role="status" aria-live="polite"><?php echo esc_html( $bulk_text ); ?></span>
+							</a>
+						</div>
+					<?php elseif ( $all_active ) : ?>
+						<div class="hester-filters">
+							<span class="hester-btn secondary hester-active-plugin">
+								<span class="dashicons dashicons-yes-alt"></span>
+								<?php esc_html_e( 'All Activated', 'shopwell' ); ?>
+							</span>
+						</div>
+					<?php endif; ?>
 				</div><!-- END .hester-section-title -->
 
 				<div class="hester-section hester-columns plugins">
@@ -523,6 +597,49 @@ if ( ! class_exists( 'Shopwell_Dashboard' ) ) :
 			}
 
 			wp_send_json_error( esc_html__( 'Failed to deactivate plugin. Missing plugin data.', 'shopwell' ) );
+		}
+
+		/**
+		 * Ajax bulk activate a list of already installed plugins.
+		 *
+		 * @since 1.0.17
+		 */
+		public function bulk_activate_plugins() {
+
+			// Security check.
+			check_ajax_referer( 'shopwell_nonce' );
+
+			$plugins = isset( $_POST['plugins'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['plugins'] ) ) : array();
+			$plugins = array_filter( $plugins );
+
+			if ( empty( $plugins ) ) {
+				wp_send_json_error( esc_html__( 'Missing plugin data', 'shopwell' ) );
+			}
+
+			$recommended = shopwell_plugin_utilities()->get_recommended_plugins();
+			$failed      = array();
+
+			foreach ( $plugins as $plugin ) {
+
+				$response = shopwell_plugin_utilities()->activate_plugin( $plugin );
+
+				if ( is_wp_error( $response ) ) {
+
+					// Log the real reason for later debugging - the end user only ever sees the plugin name.
+					if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+						error_log( sprintf( '[Shopwell] Bulk activate failed for "%s": %s', $plugin, $response->get_error_message() ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+					}
+
+					$plugin_data = shopwell_plugin_utilities()->get_plugin_by_slug( $plugin, $recommended );
+					$failed[]    = $plugin_data ? $plugin_data['name'] : $plugin;
+				}
+			}
+
+			if ( ! empty( $failed ) ) {
+				wp_send_json_error( array( 'failed' => $failed ) );
+			}
+
+			wp_send_json_success();
 		}
 
 		/**

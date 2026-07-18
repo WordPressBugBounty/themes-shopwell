@@ -43,6 +43,7 @@ function shopwell_print_notice( $args ) {
 
 	$defaults = array(
 		'type'           => 'success',
+		'title'          => '',
 		'message'        => '',
 		'is_dismissible' => true,
 		'message_id'     => '',
@@ -50,7 +51,8 @@ function shopwell_print_notice( $args ) {
 		'display_on'     => array(),
 		'action_link'    => '',
 		'action_text'    => '',
-		'dismiss_text'   => esc_html__( 'Dismiss', 'shopwell' ),
+		'action_class'   => '',
+		'action_data'    => array(),
 	);
 
 	$args = wp_parse_args( $args, $defaults );
@@ -75,28 +77,113 @@ function shopwell_print_notice( $args ) {
 		}
 	}
 
-	$shopwell_is_dismissible = $args['is_dismissible'] ? ' is-dismissible' : ''; ?>
+	$shopwell_is_dismissible = $args['is_dismissible'] ? ' is-dismissible' : '';
+	$has_action              = $args['action_link'] && $args['action_text'];
+	?>
 
-	<div id="<?php echo esc_attr( $args['message_id'] ); ?>" class="notice shopwell-notice notice-<?php echo esc_attr( $args['type'] ); ?><?php echo esc_attr( $shopwell_is_dismissible ); ?>">
-		<p><?php echo ( wp_kses_post( $args['message'] ) ); ?></p>
+	<div id="<?php echo esc_attr( $args['message_id'] ); ?>" class="notice shopwell-notice shopwell-notice-card notice-<?php echo esc_attr( $args['type'] ); ?><?php echo esc_attr( $shopwell_is_dismissible ); ?>">
 
-		<?php
-		if ( $args['action_link'] && $args['action_text'] ) {
+		<?php if ( $args['title'] ) : ?>
+			<h3 class="shopwell-notice-title"><?php echo esc_html( $args['title'] ); ?></h3>
+		<?php endif; ?>
+
+		<p class="shopwell-notice-message"><?php echo ( wp_kses_post( $args['message'] ) ); ?></p>
+
+		<?php if ( $has_action ) : ?>
+
+			<?php
+			$action_class = trim( 'shopwell-notice-btn ' . $args['action_class'] );
+			$action_attrs = '';
+
+			if ( ! empty( $args['action_data'] ) && is_array( $args['action_data'] ) ) {
+				foreach ( $args['action_data'] as $data_key => $data_value ) {
+					$action_attrs .= ' data-' . esc_attr( $data_key ) . '="' . esc_attr( $data_value ) . '"';
+				}
+			}
 			?>
 			<p class="shopwell-notice-action">
-				<a href="<?php echo esc_url( $args['action_link'] ); ?>" class="shopwell-btn primary button button-primary" role="button"><?php echo esc_html( $args['action_text'] ); ?></a>
-
-				<?php
-				if ( $args['dismiss_text'] ) {
-					?>
-					<a href="#" class="shopwell-btn secondary button button-secondary shopwell-notice-dismiss" role="button"><?php echo esc_html( $args['dismiss_text'] ); ?></a>
-					<?php
-				}
-				?>
+				<a href="<?php echo esc_url( $args['action_link'] ); ?>" class="<?php echo esc_attr( $action_class ); ?>"<?php echo $action_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> role="button">
+					<span class="shopwell-notice-spinner"></span>
+					<span class="shopwell-notice-action-text" role="status" aria-live="polite"><?php echo esc_html( $args['action_text'] ); ?></span>
+				</a>
 			</p><!-- END .shopwell-notice-action -->
-			<?php
-		}
-		?>
+		<?php endif; ?>
+
+		<style>
+			/* Scoped to this notice's id - our admin.css doesn't load on core screens
+			   (Dashboard, Themes) where this notice also needs to render correctly. */
+			#<?php echo esc_attr( $args['message_id'] ); ?> {
+				display: block;
+				position: relative;
+				background: #fff;
+				border: 1px solid #e0e0e0;
+				border-left: 1px solid #e0e0e0;
+				border-radius: 8px;
+				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+				padding: 20px 44px 20px 24px;
+			}
+			#<?php echo esc_attr( $args['message_id'] ); ?> .notice-dismiss {
+				top: 14px;
+				right: 14px;
+			}
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-title {
+				margin: 0 0 6px;
+				font-size: 18px;
+				font-weight: 600;
+				color: #111827;
+				line-height: 1.4;
+			}
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-message {
+				margin: 0<?php echo $has_action ? ' 0 16px' : ''; ?>;
+				color: #66717f;
+				font-size: 14px;
+				line-height: 1.5;
+			}
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-message a {
+				color: #0068c8;
+				text-decoration: none;
+			}
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-message a:hover,
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-message a:focus {
+				color: #0178e6;
+				text-decoration: underline;
+			}
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-action {
+				margin: 0;
+			}
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				background: #0068c8;
+				color: #fff;
+				font-size: 13px;
+				font-weight: 600;
+				line-height: 1.693;
+				text-decoration: none;
+				padding: 8px 20px;
+				border-radius: 4px;
+				border: none;
+				min-height: auto;
+				box-shadow: none;
+				text-shadow: none;
+				-webkit-transition: background-color .15s ease;
+				transition: background-color .15s ease;
+			}
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-btn:hover,
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-btn:focus {
+				background: #0178e6;
+				color: #fff;
+				box-shadow: none;
+			}
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-btn.in-progress {
+				opacity: .75;
+				pointer-events: none;
+			}
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-spinner { display: none; width: 14px; height: 14px; margin: 0 6px 0 0; vertical-align: text-bottom; border-radius: 50%; border: 2px solid rgba(255,255,255,.35); border-top-color: #fff; animation: shopwell-notice-spin .8s linear infinite; }
+			#<?php echo esc_attr( $args['message_id'] ); ?> .shopwell-notice-spinner.is-active { display: inline-block; }
+			@keyframes shopwell-notice-spin { to { transform: rotate( 360deg ); } }
+		</style>
 	</div>
 
 	<script type="text/javascript">
@@ -105,7 +192,7 @@ function shopwell_print_notice( $args ) {
 			var msgid = "<?php echo esc_attr( $args['message_id'] ); ?>";
 			var $el   = $( '#' + msgid );
 
-			$el.on( 'click', '.notice-dismiss, .shopwell-notice-dismiss', function ( event ) {
+			$el.on( 'click', '.notice-dismiss', function ( event ) {
 
 				var expires = "<?php echo esc_attr( $args['expires'] ); ?>";
 				var nonce = "<?php echo esc_attr( wp_create_nonce( 'shopwell_dismiss_notice' ) ); ?>";

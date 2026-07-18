@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shopwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 19:50+0530\n"
+"POT-Creation-Date: 2026-07-13 11:08+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgstr ""
 msgid "404"
 msgstr ""
 
-#: 404.php:34 inc/page-header.php:214
+#: 404.php:34 inc/page-header.php:218
 msgid "Page Not Found"
 msgstr ""
 
@@ -108,252 +108,307 @@ msgstr ""
 msgid "Skip to content"
 msgstr ""
 
-#: inc/admin/dashboard/helpers.php:53
-msgid "Dismiss"
-msgstr ""
-
-#: inc/admin/dashboard/helpers.php:251
+#: inc/admin/dashboard/helpers.php:338
 msgid "How to use"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:155
+#: inc/admin/dashboard/shopwell-admin.php:176
 msgid "Install"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:156
+#: inc/admin/dashboard/shopwell-admin.php:177
 msgid "Installing..."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:157
+#: inc/admin/dashboard/shopwell-admin.php:178
 msgid "Activating..."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:158
+#: inc/admin/dashboard/shopwell-admin.php:179
 msgid "Deactivating..."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:159
+#: inc/admin/dashboard/shopwell-admin.php:180
 msgid "Active"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:160
+#: inc/admin/dashboard/shopwell-admin.php:181
 msgid "Retry"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:161
+#: inc/admin/dashboard/shopwell-admin.php:182
 msgid "Please Wait..."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:162
+#: inc/admin/dashboard/shopwell-admin.php:183
 msgid "Importing... Please Wait..."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:163
+#: inc/admin/dashboard/shopwell-admin.php:184
 msgid "Currently processing: "
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:164
+#: inc/admin/dashboard/shopwell-admin.php:185
 msgid "Import"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:165
+#: inc/admin/dashboard/shopwell-admin.php:186
 msgid "Import Demo"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:166
+#: inc/admin/dashboard/shopwell-admin.php:187
 msgid "The demo importer is still working. Closing this window may result in failed import."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:167
+#: inc/admin/dashboard/shopwell-admin.php:188
 msgid "Import Complete!"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:168
+#: inc/admin/dashboard/shopwell-admin.php:189
 msgid "The demo has been imported."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:168
+#: inc/admin/dashboard/shopwell-admin.php:189
 msgid "Visit site."
 msgstr ""
 
+#: inc/admin/dashboard/shopwell-admin.php:192
+msgid "Preparing..."
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:193
+msgid "Installing plugins..."
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:194
+msgid "Activating plugins..."
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:195
+msgid "Done!"
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:196
+msgid "Couldn't activate: "
+msgstr ""
+
 #: inc/admin/dashboard/shopwell-admin.php:197
-#: inc/admin/dashboard/shopwell-dashboard.php:78
+msgid "Some plugins failed. Retrying..."
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:198
+#, php-format
+msgid " +%d more"
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:227
+#: inc/admin/dashboard/shopwell-dashboard.php:79
 msgid "Shopwell Theme"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:240
+#: inc/admin/dashboard/shopwell-admin.php:270
 msgid "Customize"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:241
-#: inc/admin/dashboard/shopwell-admin.php:264
-#: inc/admin/dashboard/shopwell-dashboard.php:221
+#: inc/admin/dashboard/shopwell-admin.php:271
+#: inc/admin/dashboard/shopwell-admin.php:294
+#: inc/admin/dashboard/shopwell-dashboard.php:222
 msgid "Help Articles"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:265
+#: inc/admin/dashboard/shopwell-admin.php:295
 msgid "Join Facebook Group"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:266
+#: inc/admin/dashboard/shopwell-admin.php:296
 msgid "Leave a Review"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:310
+#: inc/admin/dashboard/shopwell-admin.php:331
+msgid "You're All Set!"
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:332
+msgid "All recommended plugins are installed & activated. Ready to build your store? Explore our demo library."
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:336
+msgid "Demo Library"
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:361
 #, php-format
 msgid "Shopwell theme recommends the following plugins: %1$s."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:321
+#: inc/admin/dashboard/shopwell-admin.php:369
 msgid "Install Now"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:89
+#: inc/admin/dashboard/shopwell-admin.php:378
+msgid "Activate Now"
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:389
+#: inc/admin/dashboard/shopwell-dashboard.php:292
+#: inc/admin/dashboard/shopwell-dashboard.php:503
+msgid "Recommended Plugins"
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-dashboard.php:90
 msgid "Plugins"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:103
-#: inc/admin/dashboard/shopwell-dashboard.php:458
+#: inc/admin/dashboard/shopwell-dashboard.php:104
+#: inc/admin/dashboard/shopwell-dashboard.php:509
 msgid "Changelog"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:128
+#: inc/admin/dashboard/shopwell-dashboard.php:129
 msgid "Getting Started"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:135
-#: inc/admin/dashboard/shopwell-dashboard.php:139
+#: inc/admin/dashboard/shopwell-dashboard.php:136
+#: inc/admin/dashboard/shopwell-dashboard.php:140
 msgid "Install Plugins"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:136
+#: inc/admin/dashboard/shopwell-dashboard.php:137
 msgid "Explore recommended plugins. These free plugins provide additional features and customization options."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:146
+#: inc/admin/dashboard/shopwell-dashboard.php:147
 msgid "Start with a Template"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:147
+#: inc/admin/dashboard/shopwell-dashboard.php:148
 msgid "Don&rsquo;t want to start from scratch? Import a pre-built demo website in 1-click and get a head start."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:154
+#: inc/admin/dashboard/shopwell-dashboard.php:155
 msgid "Activate Hester Core"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:159
+#: inc/admin/dashboard/shopwell-dashboard.php:160
 msgid "Install Hester Core"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:164
+#: inc/admin/dashboard/shopwell-dashboard.php:165
 msgid "Browse Demos"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:184
+#: inc/admin/dashboard/shopwell-dashboard.php:185
 msgid "Upload Your Logo"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:185
+#: inc/admin/dashboard/shopwell-dashboard.php:186
 msgid "Kick off branding your new site by uploading your logo. Simply upload your logo and customize as you need."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:188
+#: inc/admin/dashboard/shopwell-dashboard.php:189
 msgid "Upload Logo"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:195
+#: inc/admin/dashboard/shopwell-dashboard.php:196
 msgid "Change Menus"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:196
+#: inc/admin/dashboard/shopwell-dashboard.php:197
 msgid "Customize menu links and choose what&rsquo;s displayed in available theme menu locations."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:199
+#: inc/admin/dashboard/shopwell-dashboard.php:200
 msgid "Go to Menus"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:206
-#: inc/admin/dashboard/shopwell-dashboard.php:210
+#: inc/admin/dashboard/shopwell-dashboard.php:207
+#: inc/admin/dashboard/shopwell-dashboard.php:211
 msgid "Change Colors"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:207
+#: inc/admin/dashboard/shopwell-dashboard.php:208
 msgid "Replace the default theme colors and make your website color scheme match your brand design."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:217
+#: inc/admin/dashboard/shopwell-dashboard.php:218
 #: inc/customizer/settings.php:380
 msgid "Need Help?"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:218
+#: inc/admin/dashboard/shopwell-dashboard.php:219
 msgid "Head over to our site to learn more about the Shopwell theme, read help articles and get support."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:232
+#: inc/admin/dashboard/shopwell-dashboard.php:233
 msgid "Let‘s customize your website"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:233
+#: inc/admin/dashboard/shopwell-dashboard.php:234
 msgid "There are many changes you can make to customize your website. Explore Shopwell customization options and make it unique."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:236
+#: inc/admin/dashboard/shopwell-dashboard.php:237
 msgid "Start Customizing"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:263
-#: inc/admin/dashboard/shopwell-dashboard.php:452
-msgid "Recommended Plugins"
+#: inc/admin/dashboard/shopwell-dashboard.php:267
+msgid "Install & Activate All"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:275
+#: inc/admin/dashboard/shopwell-dashboard.php:277
+msgid "Activate All"
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-dashboard.php:311
+msgid "All Activated"
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-dashboard.php:326
 #: inc/customizer/ui/plugin-install-helper/class-shopwell-customizer-plugin-install-helper.php:128
 msgid "Deactivate"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:277
+#: inc/admin/dashboard/shopwell-dashboard.php:328
 msgid "Plugin activated"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:280
+#: inc/admin/dashboard/shopwell-dashboard.php:331
 #: inc/customizer/ui/plugin-install-helper/class-shopwell-customizer-plugin-install-helper.php:113
 #: inc/customizer/ui/plugin-install-helper/class-shopwell-customizer-plugin-install-helper.php:133
 msgid "Activate"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:285
+#: inc/admin/dashboard/shopwell-dashboard.php:336
 msgid "Install & Activate"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:334
+#: inc/admin/dashboard/shopwell-dashboard.php:385
 msgid "Changelog file not found."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:336
+#: inc/admin/dashboard/shopwell-dashboard.php:387
 msgid "Changelog file not readable."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:353
+#: inc/admin/dashboard/shopwell-dashboard.php:404
 msgid "Shopwell Theme Changelog"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:446
+#: inc/admin/dashboard/shopwell-dashboard.php:497
 msgid "About"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:481
-#: inc/admin/dashboard/shopwell-dashboard.php:512
+#: inc/admin/dashboard/shopwell-dashboard.php:532
+#: inc/admin/dashboard/shopwell-dashboard.php:563
+#: inc/admin/dashboard/shopwell-dashboard.php:593
 msgid "Missing plugin data"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:495
+#: inc/admin/dashboard/shopwell-dashboard.php:546
 msgid "Failed to activate plugin. Missing plugin data."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:525
+#: inc/admin/dashboard/shopwell-dashboard.php:576
 msgid "Failed to deactivate plugin. Missing plugin data."
 msgstr ""
 
@@ -436,7 +491,7 @@ msgid "Search Results for: %s"
 msgstr ""
 
 #: inc/blog/main.php:343 inc/blog/posts-heading.php:42
-#: inc/blog/posts-heading.php:76
+#: inc/blog/posts-heading.php:77
 msgid "Recent Posts"
 msgstr ""
 
@@ -483,11 +538,11 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: inc/blog/posts-heading.php:79
+#: inc/blog/posts-heading.php:80
 msgid "Popular Posts"
 msgstr ""
 
-#: inc/blog/posts-heading.php:82 inc/customizer/settings.php:1088
+#: inc/blog/posts-heading.php:83 inc/customizer/settings.php:1088
 #: template-parts/post/featured-posts.php:27
 msgid "Featured Posts"
 msgstr ""
@@ -1212,15 +1267,15 @@ msgid "Logo"
 msgstr ""
 
 #: inc/customizer/settings.php:117 inc/customizer/settings.php:149
-#: inc/customizer/settings.php:283 inc/header/main.php:897
-#: inc/header/main.php:901 inc/header/mobile.php:668
+#: inc/customizer/settings.php:283 inc/header/main.php:895
+#: inc/header/main.php:899 inc/header/mobile.php:668
 #: template-parts/navigation-bar/cart.php:33
 msgid "Cart"
 msgstr ""
 
 #: inc/customizer/settings.php:118 inc/customizer/settings.php:150
 #: inc/customizer/settings.php:275 inc/customizer/settings.php:1372
-#: inc/header/main.php:809 inc/header/main.php:814
+#: inc/header/main.php:807 inc/header/main.php:812
 #: inc/woocommerce/catalog.php:1046 inc/woocommerce/customizer.php:298
 #: inc/woocommerce/wishlist.php:134
 #: template-parts/navigation-bar/wishlist.php:22
@@ -1229,7 +1284,7 @@ msgstr ""
 
 #: inc/customizer/settings.php:119 inc/customizer/settings.php:151
 #: inc/customizer/settings.php:279 inc/customizer/settings.php:1376
-#: inc/header/main.php:850 inc/header/main.php:855
+#: inc/header/main.php:848 inc/header/main.php:853
 #: inc/woocommerce/compare.php:126 inc/woocommerce/compare.php:162
 #: inc/woocommerce/compare.php:183 inc/woocommerce/customizer.php:314
 #: template-parts/navigation-bar/compare.php:27
@@ -1237,8 +1292,8 @@ msgid "Compare"
 msgstr ""
 
 #: inc/customizer/settings.php:120 inc/customizer/settings.php:152
-#: inc/customizer/settings.php:271 inc/header/main.php:744
-#: inc/header/main.php:749 inc/header/main.php:756
+#: inc/customizer/settings.php:271 inc/header/main.php:742
+#: inc/header/main.php:747 inc/header/main.php:754
 #: template-parts/header/account.php:64
 #: template-parts/navigation-bar/account.php:15
 #: template-parts/panels/account.php:29
@@ -1303,7 +1358,7 @@ msgid "Back To Top"
 msgstr ""
 
 #: inc/customizer/settings.php:219
-msgid "Share Socials"
+msgid "Social Sharing"
 msgstr ""
 
 #: inc/customizer/settings.php:223
@@ -1970,7 +2025,7 @@ msgstr ""
 msgid "Google Fonts"
 msgstr ""
 
-#: inc/header/hamburger.php:122 inc/header/main.php:951
+#: inc/header/hamburger.php:122 inc/header/main.php:957
 #: inc/woocommerce/catalog.php:616
 msgid "Shop by Category"
 msgstr ""
@@ -1983,15 +2038,15 @@ msgstr ""
 msgid "Shop Not Available"
 msgstr ""
 
-#: inc/header/main.php:176 inc/header/main.php:598
+#: inc/header/main.php:174 inc/header/main.php:596
 msgid "All Categories"
 msgstr ""
 
-#: inc/header/main.php:694
+#: inc/header/main.php:692
 msgid "Region"
 msgstr ""
 
-#: inc/header/main.php:751 template-parts/panels/hamburger.php:19
+#: inc/header/main.php:749 template-parts/panels/hamburger.php:19
 #: woocommerce/cart/cart-empty.php:53 woocommerce/cart/mini-cart.php:142
 #: woocommerce/myaccount/form-login.php:27
 #: woocommerce/myaccount/form-login.php:57
@@ -1999,23 +2054,23 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
-#: inc/header/main.php:764
+#: inc/header/main.php:762
 msgid "Welcome"
 msgstr ""
 
-#: inc/header/main.php:765
+#: inc/header/main.php:763
 msgid "Sign in / Register"
 msgstr ""
 
-#: inc/header/main.php:905
+#: inc/header/main.php:903
 msgid "My Cart"
 msgstr ""
 
-#: inc/header/main.php:956 template-parts/navigation-bar/categories.php:11
+#: inc/header/main.php:962 template-parts/navigation-bar/categories.php:11
 msgid "Categories"
 msgstr ""
 
-#: inc/header/main.php:1003 inc/header/main.php:1009 inc/header/mobile.php:696
+#: inc/header/main.php:1009 inc/header/main.php:1015 inc/header/mobile.php:696
 msgid "Return the Shop"
 msgstr ""
 
@@ -2065,43 +2120,43 @@ msgstr ""
 msgid "Default Footer Page"
 msgstr ""
 
-#: inc/options.php:579 inc/woocommerce/badges.php:161
+#: inc/options.php:577 inc/woocommerce/badges.php:161
 #: inc/woocommerce/catalog.php:590 inc/woocommerce/catalog.php:591
 msgid "Sale"
 msgstr ""
 
-#: inc/options.php:583 inc/woocommerce/badges.php:132
+#: inc/options.php:581 inc/woocommerce/badges.php:132
 #: inc/woocommerce/catalog.php:577
 msgid "New"
 msgstr ""
 
-#: inc/options.php:588 inc/woocommerce/badges.php:136
+#: inc/options.php:586 inc/woocommerce/badges.php:136
 msgid "Hot"
 msgstr ""
 
-#: inc/options.php:592 inc/woocommerce/badges.php:122
+#: inc/options.php:590 inc/woocommerce/badges.php:122
 #: inc/woocommerce/product-card.php:711
 msgid "Out Of Stock"
 msgstr ""
 
-#: inc/page-header.php:212
+#: inc/page-header.php:216
 msgid "Search Results"
 msgstr ""
 
-#: inc/page-header.php:218
+#: inc/page-header.php:222
 msgid "The Latest Posts"
 msgstr ""
 
-#: inc/search-ajax.php:82
+#: inc/search-ajax.php:86
 msgid "help articles"
 msgstr ""
 
-#: inc/search-ajax.php:88
+#: inc/search-ajax.php:92
 #, php-format
 msgid "No %s were found matching your selection."
 msgstr ""
 
-#: inc/search-ajax.php:97
+#: inc/search-ajax.php:101
 msgid "View All"
 msgstr ""
 
@@ -2427,8 +2482,8 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
-#: inc/woocommerce/customizer.php:142 inc/woocommerce/quickview.php:321
-#: inc/woocommerce/quickview.php:322
+#: inc/woocommerce/customizer.php:142 inc/woocommerce/quickview.php:332
+#: inc/woocommerce/quickview.php:333
 msgid "Quick View"
 msgstr ""
 
@@ -2801,11 +2856,11 @@ msgstr ""
 msgid "No products in recent viewing history."
 msgstr ""
 
-#: inc/woocommerce/quickview.php:132
+#: inc/woocommerce/quickview.php:133
 msgid "No product."
 msgstr ""
 
-#: inc/woocommerce/quickview.php:138
+#: inc/woocommerce/quickview.php:142 inc/woocommerce/quickview.php:149
 msgid "Invalid product."
 msgstr ""
 
@@ -3022,7 +3077,7 @@ msgstr ""
 msgid "Search Button"
 msgstr ""
 
-#: woocommerce/cart/cart-empty.php:38
+#: woocommerce/cart/cart-empty.php:37
 msgid "Shop What&rsquo;s New"
 msgstr ""
 

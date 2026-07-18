@@ -1,3 +1,11 @@
+= 1.0.17 - 18 July 2026 =
+* [New]: Added checks to prevent collisions between individual and bulk plugin actions.
+* [New]: Implemented bulk install and activation logic for recommended plugins.
+* [New]: Introduced new utility functions to handle non-installed plugins.
+* [Updated]: Admin notice to provide feedback on plugin installation and activation status.
+* [Improved]: User interface for bulk actions with loading indicators and action buttons.
+* [Improved]: Refactored JavaScript to streamline plugin action handling and improve performance.
+
 = 1.0.16 - 10 July 2026 =
 * [Updated]: Changed display property of menu item icons in header-category to none.
 * [Updated]: Adjusted image size and fit for menu item icons in header-category.

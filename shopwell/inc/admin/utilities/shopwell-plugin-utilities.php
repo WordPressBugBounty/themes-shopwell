@@ -347,6 +347,25 @@ class Shopwell_Plugin_Utilities {
 	}
 
 	/**
+	 * Get non installed plugins from an array.
+	 *
+	 * @param array, $plugins Filter non installed plugins.
+	 * @since 1.0.17
+	 */
+	public function get_not_installed_plugins( $plugins ) {
+
+		if ( is_array( $plugins ) && ! empty( $plugins ) ) {
+			foreach ( $plugins as $slug => $plugin ) {
+				if ( $this->is_installed( $slug ) ) {
+					unset( $plugins[ $slug ] );
+				}
+			}
+		}
+
+		return $plugins;
+	}
+
+	/**
 	 * Get plugin object based on slug.
 	 *
 	 * @since 1.0.0

@@ -124,7 +124,6 @@ if ( ! class_exists( 'Shopwell_Admin' ) ) :
 			}
 
 			// Script debug.
-			$prefix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? 'dev/' : '';
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			/**
@@ -136,6 +135,28 @@ if ( ! class_exists( 'Shopwell_Admin' ) ) :
 				false,
 				SHOPWELL_THEME_VERSION
 			);
+
+			$this->enqueue_admin_script();
+		}
+
+		/**
+		 * Enqueue & localize our admin script bundle.
+		 *
+		 * Split out from load_assets() so the recommended-plugins notice
+		 * can pull in the bulk install/activate logic on core screens
+		 * (Dashboard, Themes) that don't load our full asset bundle.
+		 *
+		 * @since 1.0.17
+		 */
+		public function enqueue_admin_script() {
+
+			if ( wp_script_is( 'shopwell-admin-script', 'enqueued' ) ) {
+				return;
+			}
+
+			// Script debug.
+			$prefix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? 'dev/' : '';
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			/**
 			 * Enqueue admin pages script.
@@ -152,20 +173,31 @@ if ( ! class_exists( 'Shopwell_Admin' ) ) :
 			 * Localize admin strings.
 			 */
 			$texts = array(
-				'install'               => esc_html__( 'Install', 'shopwell' ),
-				'install-inprogress'    => esc_html__( 'Installing...', 'shopwell' ),
-				'activate-inprogress'   => esc_html__( 'Activating...', 'shopwell' ),
-				'deactivate-inprogress' => esc_html__( 'Deactivating...', 'shopwell' ),
-				'active'                => esc_html__( 'Active', 'shopwell' ),
-				'retry'                 => esc_html__( 'Retry', 'shopwell' ),
-				'please_wait'           => esc_html__( 'Please Wait...', 'shopwell' ),
-				'importing'             => esc_html__( 'Importing... Please Wait...', 'shopwell' ),
-				'currently_processing'  => esc_html__( 'Currently processing: ', 'shopwell' ),
-				'import'                => esc_html__( 'Import', 'shopwell' ),
-				'import_demo'           => esc_html__( 'Import Demo', 'shopwell' ),
-				'importing_notice'      => esc_html__( 'The demo importer is still working. Closing this window may result in failed import.', 'shopwell' ),
-				'import_complete'       => esc_html__( 'Import Complete!', 'shopwell' ),
-				'import_complete_desc'  => esc_html__( 'The demo has been imported.', 'shopwell' ) . ' <a href="' . esc_url( get_home_url() ) . '">' . esc_html__( 'Visit site.', 'shopwell' ) . '</a>',
+				'install'                     => esc_html__( 'Install', 'shopwell' ),
+				'install-inprogress'          => esc_html__( 'Installing...', 'shopwell' ),
+				'activate-inprogress'         => esc_html__( 'Activating...', 'shopwell' ),
+				'deactivate-inprogress'       => esc_html__( 'Deactivating...', 'shopwell' ),
+				'active'                      => esc_html__( 'Active', 'shopwell' ),
+				'retry'                       => esc_html__( 'Retry', 'shopwell' ),
+				'please_wait'                 => esc_html__( 'Please Wait...', 'shopwell' ),
+				'importing'                   => esc_html__( 'Importing... Please Wait...', 'shopwell' ),
+				'currently_processing'        => esc_html__( 'Currently processing: ', 'shopwell' ),
+				'import'                      => esc_html__( 'Import', 'shopwell' ),
+				'import_demo'                 => esc_html__( 'Import Demo', 'shopwell' ),
+				'importing_notice'            => esc_html__( 'The demo importer is still working. Closing this window may result in failed import.', 'shopwell' ),
+				'import_complete'             => esc_html__( 'Import Complete!', 'shopwell' ),
+				'import_complete_desc'        => esc_html__( 'The demo has been imported.', 'shopwell' ) . ' <a href="' . esc_url( get_home_url() ) . '">' . esc_html__( 'Visit site.', 'shopwell' ) . '</a>',
+				// Note: plain __(), not esc_html__() - these are set via jQuery's
+				// .text() in JS, which doesn't decode HTML entities like &#039;.
+				'preparing'                   => __( 'Preparing...', 'shopwell' ),
+				'installing_plugins'          => __( 'Installing plugins...', 'shopwell' ),
+				'activating_plugins'          => __( 'Activating plugins...', 'shopwell' ),
+				'bulk_done'                   => __( 'Done!', 'shopwell' ),
+				'bulk_failed_install_prefix'  => __( "Couldn't install: ", 'shopwell' ),
+				'bulk_failed_activate_prefix' => __( "Couldn't activate: ", 'shopwell' ),
+				'bulk_failed_generic'         => __( 'Some plugins failed. Reloading...', 'shopwell' ),
+				'bulk_failed_more'            => __( ' +%d more', 'shopwell' ),
+				'bulk_unload_warning'         => __( 'Plugins are still being installed/activated. Leaving now may leave the process incomplete.', 'shopwell' ),
 			);
 
 			$strings = array(
@@ -271,6 +303,66 @@ if ( ! class_exists( 'Shopwell_Admin' ) ) :
 		}
 
 		/**
+		 * Show a dismissible notice pointing to a manual upload when a bulk
+		 * install fails - e.g. a slow/blocked connection to WordPress.org
+		 * that even our raised time limit and auto-retry couldn't get past.
+		 *
+		 * Reads the failed plugin slugs off a one-time query arg the bulk
+		 * JS appends to its own reload, so it survives the page refresh
+		 * without needing a transient or extra AJAX round trip.
+		 *
+		 * @since 1.0.17
+		 */
+		private function bulk_install_failure_notice() {
+
+			if ( empty( $_GET['shopwell_install_failed'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				return;
+			}
+
+			$slugs = sanitize_text_field( wp_unslash( $_GET['shopwell_install_failed'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$slugs = array_filter( array_map( 'sanitize_key', explode( ',', $slugs ) ) );
+
+			if ( empty( $slugs ) ) {
+				return;
+			}
+
+			$recommended = shopwell_plugin_utilities()->get_recommended_plugins();
+			$names       = array();
+
+			foreach ( $slugs as $slug ) {
+				$plugin  = shopwell_plugin_utilities()->get_plugin_by_slug( $slug, $recommended );
+				$names[] = $plugin ? $plugin['name'] : $slug;
+			}
+
+			if ( empty( $names ) ) {
+				return;
+			}
+			?>
+			<div class="notice notice-error is-dismissible" role="alert">
+				<p>
+					<strong><?php esc_html_e( "Couldn't install some plugins automatically:", 'shopwell' ); ?></strong>
+					<?php echo esc_html( implode( ', ', $names ) ); ?>
+				</p>
+				<p>
+					<?php esc_html_e( 'This usually happens because of a server time limit or a slow/blocked connection to WordPress.org. You can try again, or install the plugin manually instead.', 'shopwell' ); ?>
+					<a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=upload' ) ); ?>"><?php esc_html_e( 'Upload plugin manually', 'shopwell' ); ?> &rarr;</a>
+				</p>
+			</div>
+			<script>
+				// Drop the one-time failure flag from the address bar so a manual
+				// refresh doesn't keep re-showing this notice with stale data.
+				( function () {
+					if ( window.history && window.history.replaceState ) {
+						var url = new URL( window.location.href );
+						url.searchParams.delete( 'shopwell_install_failed' );
+						window.history.replaceState( null, '', url.toString() );
+					}
+				}() );
+			</script>
+			<?php
+		}
+
+		/**
 		 * Admin Notices
 		 *
 		 * @since 1.0.0
@@ -284,17 +376,35 @@ if ( ! class_exists( 'Shopwell_Admin' ) ) :
 				return;
 			}
 
+			$this->bulk_install_failure_notice();
+
 			// Display if not dismissed and not on Shopwell plugins page.
 			if ( ! shopwell_is_notice_dismissed( 'shopwell_notice_recommended-plugins' ) && ! shopwell_is_admin_page( false, 'shopwell-plugins' ) ) {
 
-				$plugins = shopwell_plugin_utilities()->get_recommended_plugins();
-				$plugins = shopwell_plugin_utilities()->get_deactivated_plugins( $plugins );
+				$recommended   = shopwell_plugin_utilities()->get_recommended_plugins();
+				$not_active    = shopwell_plugin_utilities()->get_deactivated_plugins( $recommended );
+				$not_installed = shopwell_plugin_utilities()->get_not_installed_plugins( $recommended );
 
-				$plugin_list = '';
+				// Nothing left to install/activate, point to the Demo Library instead.
+				// Skip this on the Demo Library page itself - its own CTA would just point to the page you're already on.
+				if ( is_array( $recommended ) && ! empty( $recommended ) && empty( $not_active ) && ! shopwell_is_admin_page( false, 'shopwell-demo-library' ) ) {
 
-				if ( is_array( $plugins ) && ! empty( $plugins ) ) {
+					shopwell_print_notice(
+						array(
+							'type'        => 'info',
+							'title'       => esc_html__( "You're All Set!", 'shopwell' ),
+							'message'     => esc_html__( 'All recommended plugins are installed & activated. Ready to build your store? Explore our demo library.', 'shopwell' ),
+							'message_id'  => 'recommended-plugins',
+							'expires'     => 7 * 24 * 60 * 60,
+							'action_link' => admin_url( 'admin.php?page=shopwell-demo-library' ),
+							'action_text' => esc_html__( 'Demo Library', 'shopwell' ),
+						)
+					);
+				} elseif ( is_array( $not_active ) && ! empty( $not_active ) ) {
 
-					foreach ( $plugins as $slug => $plugin ) {
+					$plugin_list = '';
+
+					foreach ( $not_active as $slug => $plugin ) {
 
 						$url = admin_url( 'plugin-install.php?tab=plugin-information&plugin=' . esc_attr( $slug ) . '&TB_iframe=true&width=990&height=500' );
 
@@ -302,23 +412,52 @@ if ( ! class_exists( 'Shopwell_Admin' ) ) :
 					}
 
 					wp_enqueue_script( 'plugin-install' );
+					wp_enqueue_script( 'updates' );
 					add_thickbox();
+
+					// Make sure our bulk install/activate JS is available, even on core screens
+					// (Dashboard, Themes) that don't load our full admin asset bundle.
+					$this->enqueue_admin_script();
 
 					$plugin_list = trim( $plugin_list, ', ' );
 
 					/* translators: %1$s <strong> tag, %2$s </strong> tag */
 					$message = sprintf( wp_kses_post( __( 'Shopwell theme recommends the following plugins: %1$s.', 'shopwell' ) ), $plugin_list );
 
-					$navigation_items = shopwell_dashboard()->get_navigation_items();
+					// Slug => name lookup so failures can be reported by plugin name, not slug.
+					$plugin_names = wp_json_encode( wp_list_pluck( $not_active, 'name' ) );
+
+					// Not everything is installed yet - a single click installs & activates everything needed.
+					if ( ! empty( $not_installed ) ) {
+
+						$action_text = esc_html__( 'Install Now', 'shopwell' );
+						$action_data = array(
+							'shopwell-bulk-action'   => 'install',
+							'shopwell-install-list'  => wp_json_encode( array_keys( $not_installed ) ),
+							'shopwell-activate-list' => wp_json_encode( array_keys( array_diff_key( $not_active, $not_installed ) ) ),
+							'shopwell-plugin-names'  => $plugin_names,
+						);
+					} else {
+						// Everything is already installed, only activation is left.
+						$action_text = esc_html__( 'Activate Now', 'shopwell' );
+						$action_data = array(
+							'shopwell-bulk-action'   => 'activate',
+							'shopwell-activate-list' => wp_json_encode( array_keys( $not_active ) ),
+							'shopwell-plugin-names'  => $plugin_names,
+						);
+					}
 
 					shopwell_print_notice(
 						array(
-							'type'        => 'info',
-							'message'     => $message,
-							'message_id'  => 'recommended-plugins',
-							'expires'     => 7 * 24 * 60 * 60,
-							'action_link' => $navigation_items['plugins']['url'],
-							'action_text' => esc_html__( 'Install Now', 'shopwell' ),
+							'type'         => 'info',
+							'title'        => esc_html__( 'Recommended Plugins', 'shopwell' ),
+							'message'      => $message,
+							'message_id'   => 'recommended-plugins',
+							'expires'      => 7 * 24 * 60 * 60,
+							'action_link'  => '#',
+							'action_text'  => $action_text,
+							'action_class' => 'shopwell-bulk-plugins-action',
+							'action_data'  => $action_data,
 						)
 					);
 				}
