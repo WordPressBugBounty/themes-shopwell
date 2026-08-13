@@ -1,3 +1,10 @@
+= 1.0.19 - 13 August 2026 =
+*[Fixed]: More than one text-domain issue.
+*[Updated]: Language POT file.
+
+= 1.0.18 - 13 August 2026 =
+*[Updated]: WooCommerce 11.0.0 templates.
+
 = 1.0.17 - 18 July 2026 =
 * [New]: Added checks to prevent collisions between individual and bulk plugin actions.
 * [New]: Implemented bulk install and activation logic for recommended plugins.

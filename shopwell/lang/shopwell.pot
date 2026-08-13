@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shopwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-13 11:08+0530\n"
+"POT-Creation-Date: 2026-08-13 14:14+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 "X-Loco-Version: 2.6.6; wp-6.4.3\n"
 "X-Domain: shopwell\n"
 "X-Poedit-Basepath: ..\n"
@@ -189,226 +189,246 @@ msgid "Done!"
 msgstr ""
 
 #: inc/admin/dashboard/shopwell-admin.php:196
-msgid "Couldn't activate: "
+msgid "Couldn't install: "
 msgstr ""
 
 #: inc/admin/dashboard/shopwell-admin.php:197
-msgid "Some plugins failed. Retrying..."
+msgid "Couldn't activate: "
 msgstr ""
 
 #: inc/admin/dashboard/shopwell-admin.php:198
+msgid "Some plugins failed. Reloading..."
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:199
 #, php-format
 msgid " +%d more"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:227
-#: inc/admin/dashboard/shopwell-dashboard.php:79
+#: inc/admin/dashboard/shopwell-admin.php:200
+msgid "Plugins are still being installed/activated. Leaving now may leave the process incomplete."
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:229
+#: inc/admin/dashboard/shopwell-dashboard.php:102
 msgid "Shopwell Theme"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:270
+#: inc/admin/dashboard/shopwell-admin.php:272
 msgid "Customize"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:271
-#: inc/admin/dashboard/shopwell-admin.php:294
-#: inc/admin/dashboard/shopwell-dashboard.php:222
+#: inc/admin/dashboard/shopwell-admin.php:273
+#: inc/admin/dashboard/shopwell-admin.php:296
+#: inc/admin/dashboard/shopwell-dashboard.php:245
 msgid "Help Articles"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:295
+#: inc/admin/dashboard/shopwell-admin.php:297
 msgid "Join Facebook Group"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:296
+#: inc/admin/dashboard/shopwell-admin.php:298
 msgid "Leave a Review"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:331
+#: inc/admin/dashboard/shopwell-admin.php:343
+msgid "Couldn't install some plugins automatically:"
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:347
+msgid "This usually happens because of a server time limit or a slow/blocked connection to WordPress.org. You can try again, or install the plugin manually instead."
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:348
+msgid "Upload plugin manually"
+msgstr ""
+
+#: inc/admin/dashboard/shopwell-admin.php:395
 msgid "You're All Set!"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:332
+#: inc/admin/dashboard/shopwell-admin.php:396
 msgid "All recommended plugins are installed & activated. Ready to build your store? Explore our demo library."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:336
+#: inc/admin/dashboard/shopwell-admin.php:400
 msgid "Demo Library"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:361
+#: inc/admin/dashboard/shopwell-admin.php:425
 #, php-format
 msgid "Shopwell theme recommends the following plugins: %1$s."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:369
+#: inc/admin/dashboard/shopwell-admin.php:433
 msgid "Install Now"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:378
+#: inc/admin/dashboard/shopwell-admin.php:442
 msgid "Activate Now"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-admin.php:389
-#: inc/admin/dashboard/shopwell-dashboard.php:292
-#: inc/admin/dashboard/shopwell-dashboard.php:503
+#: inc/admin/dashboard/shopwell-admin.php:453
+#: inc/admin/dashboard/shopwell-dashboard.php:315
+#: inc/admin/dashboard/shopwell-dashboard.php:526
 msgid "Recommended Plugins"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:90
+#: inc/admin/dashboard/shopwell-dashboard.php:113
 msgid "Plugins"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:104
-#: inc/admin/dashboard/shopwell-dashboard.php:509
+#: inc/admin/dashboard/shopwell-dashboard.php:127
+#: inc/admin/dashboard/shopwell-dashboard.php:532
 msgid "Changelog"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:129
+#: inc/admin/dashboard/shopwell-dashboard.php:152
 msgid "Getting Started"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:136
-#: inc/admin/dashboard/shopwell-dashboard.php:140
+#: inc/admin/dashboard/shopwell-dashboard.php:159
+#: inc/admin/dashboard/shopwell-dashboard.php:163
 msgid "Install Plugins"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:137
+#: inc/admin/dashboard/shopwell-dashboard.php:160
 msgid "Explore recommended plugins. These free plugins provide additional features and customization options."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:147
+#: inc/admin/dashboard/shopwell-dashboard.php:170
 msgid "Start with a Template"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:148
+#: inc/admin/dashboard/shopwell-dashboard.php:171
 msgid "Don&rsquo;t want to start from scratch? Import a pre-built demo website in 1-click and get a head start."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:155
+#: inc/admin/dashboard/shopwell-dashboard.php:178
 msgid "Activate Hester Core"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:160
+#: inc/admin/dashboard/shopwell-dashboard.php:183
 msgid "Install Hester Core"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:165
+#: inc/admin/dashboard/shopwell-dashboard.php:188
 msgid "Browse Demos"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:185
+#: inc/admin/dashboard/shopwell-dashboard.php:208
 msgid "Upload Your Logo"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:186
+#: inc/admin/dashboard/shopwell-dashboard.php:209
 msgid "Kick off branding your new site by uploading your logo. Simply upload your logo and customize as you need."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:189
+#: inc/admin/dashboard/shopwell-dashboard.php:212
 msgid "Upload Logo"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:196
+#: inc/admin/dashboard/shopwell-dashboard.php:219
 msgid "Change Menus"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:197
+#: inc/admin/dashboard/shopwell-dashboard.php:220
 msgid "Customize menu links and choose what&rsquo;s displayed in available theme menu locations."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:200
+#: inc/admin/dashboard/shopwell-dashboard.php:223
 msgid "Go to Menus"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:207
-#: inc/admin/dashboard/shopwell-dashboard.php:211
+#: inc/admin/dashboard/shopwell-dashboard.php:230
+#: inc/admin/dashboard/shopwell-dashboard.php:234
 msgid "Change Colors"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:208
+#: inc/admin/dashboard/shopwell-dashboard.php:231
 msgid "Replace the default theme colors and make your website color scheme match your brand design."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:218
+#: inc/admin/dashboard/shopwell-dashboard.php:241
 #: inc/customizer/settings.php:380
 msgid "Need Help?"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:219
+#: inc/admin/dashboard/shopwell-dashboard.php:242
 msgid "Head over to our site to learn more about the Shopwell theme, read help articles and get support."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:233
+#: inc/admin/dashboard/shopwell-dashboard.php:256
 msgid "Let‘s customize your website"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:234
+#: inc/admin/dashboard/shopwell-dashboard.php:257
 msgid "There are many changes you can make to customize your website. Explore Shopwell customization options and make it unique."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:237
+#: inc/admin/dashboard/shopwell-dashboard.php:260
 msgid "Start Customizing"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:267
+#: inc/admin/dashboard/shopwell-dashboard.php:290
 msgid "Install & Activate All"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:277
+#: inc/admin/dashboard/shopwell-dashboard.php:300
 msgid "Activate All"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:311
+#: inc/admin/dashboard/shopwell-dashboard.php:334
 msgid "All Activated"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:326
+#: inc/admin/dashboard/shopwell-dashboard.php:349
 #: inc/customizer/ui/plugin-install-helper/class-shopwell-customizer-plugin-install-helper.php:128
 msgid "Deactivate"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:328
+#: inc/admin/dashboard/shopwell-dashboard.php:351
 msgid "Plugin activated"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:331
+#: inc/admin/dashboard/shopwell-dashboard.php:354
 #: inc/customizer/ui/plugin-install-helper/class-shopwell-customizer-plugin-install-helper.php:113
 #: inc/customizer/ui/plugin-install-helper/class-shopwell-customizer-plugin-install-helper.php:133
 msgid "Activate"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:336
+#: inc/admin/dashboard/shopwell-dashboard.php:359
 msgid "Install & Activate"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:385
+#: inc/admin/dashboard/shopwell-dashboard.php:408
 msgid "Changelog file not found."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:387
+#: inc/admin/dashboard/shopwell-dashboard.php:410
 msgid "Changelog file not readable."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:404
+#: inc/admin/dashboard/shopwell-dashboard.php:427
 msgid "Shopwell Theme Changelog"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:497
+#: inc/admin/dashboard/shopwell-dashboard.php:520
 msgid "About"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:532
-#: inc/admin/dashboard/shopwell-dashboard.php:563
-#: inc/admin/dashboard/shopwell-dashboard.php:593
+#: inc/admin/dashboard/shopwell-dashboard.php:555
+#: inc/admin/dashboard/shopwell-dashboard.php:586
+#: inc/admin/dashboard/shopwell-dashboard.php:616
 msgid "Missing plugin data"
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:546
+#: inc/admin/dashboard/shopwell-dashboard.php:569
 msgid "Failed to activate plugin. Missing plugin data."
 msgstr ""
 
-#: inc/admin/dashboard/shopwell-dashboard.php:576
+#: inc/admin/dashboard/shopwell-dashboard.php:599
 msgid "Failed to deactivate plugin. Missing plugin data."
 msgstr ""
 
@@ -2047,7 +2067,7 @@ msgid "Region"
 msgstr ""
 
 #: inc/header/main.php:749 template-parts/panels/hamburger.php:19
-#: woocommerce/cart/cart-empty.php:53 woocommerce/cart/mini-cart.php:142
+#: woocommerce/cart/cart-empty.php:53 woocommerce/cart/mini-cart.php:151
 #: woocommerce/myaccount/form-login.php:27
 #: woocommerce/myaccount/form-login.php:57
 #: woocommerce/wishlist/wishlist-empty.php:35
@@ -2096,7 +2116,7 @@ msgstr ""
 msgid "Continue reading &quot;%s&quot;"
 msgstr ""
 
-#: inc/helper.php:259 woocommerce/cart/mini-cart.php:142
+#: inc/helper.php:259 woocommerce/cart/mini-cart.php:151
 msgid "My Account"
 msgstr ""
 
@@ -2308,11 +2328,11 @@ msgid "Cart is cleared."
 msgstr ""
 
 #: inc/woocommerce/cart.php:108 inc/woocommerce/cart.php:109
-#: woocommerce/cart/mini-cart.php:139 woocommerce/cart/mini-cart.php:147
+#: woocommerce/cart/mini-cart.php:148 woocommerce/cart/mini-cart.php:156
 msgid "Cart is empty"
 msgstr ""
 
-#: inc/woocommerce/cart.php:110 woocommerce/cart/mini-cart.php:140
+#: inc/woocommerce/cart.php:110 woocommerce/cart/mini-cart.php:149
 msgid "Don&#39;t miss out on amazing deals! Sign in to view products added or start shopping now."
 msgstr ""
 
@@ -3143,7 +3163,8 @@ msgid "Available on backorder"
 msgstr ""
 
 #: woocommerce/cart/cart.php:119 woocommerce/cart/cart.php:173
-#: woocommerce/cart/mini-cart.php:93 woocommerce/wishlist/wishlist-table.php:53
+#: woocommerce/cart/mini-cart.php:102
+#: woocommerce/wishlist/wishlist-table.php:53
 msgid "Remove this item"
 msgstr ""
 
@@ -3163,15 +3184,15 @@ msgstr ""
 msgid "Update cart"
 msgstr ""
 
-#: woocommerce/cart/mini-cart.php:78
+#: woocommerce/cart/mini-cart.php:87
 msgid "QTY:"
 msgstr ""
 
-#: woocommerce/cart/mini-cart.php:141
+#: woocommerce/cart/mini-cart.php:150
 msgid "Shop What&#39;s New"
 msgstr ""
 
-#: woocommerce/cart/mini-cart.php:148
+#: woocommerce/cart/mini-cart.php:157
 msgid "No products in the cart."
 msgstr ""
 
@@ -3218,32 +3239,36 @@ msgstr ""
 msgid "Display name"
 msgstr ""
 
-#: woocommerce/myaccount/form-edit-account.php:47
+#: woocommerce/myaccount/form-edit-account.php:48
 msgid "This will be how your name will be displayed in the account section and in reviews"
 msgstr ""
 
-#: woocommerce/myaccount/form-edit-account.php:52
+#: woocommerce/myaccount/form-edit-account.php:48
+msgid "This will be how your name will be displayed in the account section"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:53
 #: woocommerce/myaccount/form-login.php:93
 msgid "Email address"
 msgstr ""
 
-#: woocommerce/myaccount/form-edit-account.php:68
+#: woocommerce/myaccount/form-edit-account.php:69
 msgid "Password Change"
 msgstr ""
 
-#: woocommerce/myaccount/form-edit-account.php:71
+#: woocommerce/myaccount/form-edit-account.php:72
 msgid "Current Password"
 msgstr ""
 
-#: woocommerce/myaccount/form-edit-account.php:75
+#: woocommerce/myaccount/form-edit-account.php:76
 msgid "New Password"
 msgstr ""
 
-#: woocommerce/myaccount/form-edit-account.php:79
+#: woocommerce/myaccount/form-edit-account.php:80
 msgid "Confirm new password"
 msgstr ""
 
-#: woocommerce/myaccount/form-edit-account.php:96
+#: woocommerce/myaccount/form-edit-account.php:97
 msgid "Save changes"
 msgstr ""
 

@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 10.8.0
+ * @version 11.0.0
  */
 
 
@@ -26,12 +26,12 @@ do_action( 'woocommerce_before_cart' ); ?>
 		<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
 		<thead>
 			<tr>
-				<th class="product-thumbnail"><?php esc_html_e( 'Products', 'shopwell' ); ?></th>
+				<th scope="col" class="product-thumbnail"><?php esc_html_e( 'Products', 'shopwell' ); ?></th>
 				<th scope="col" class="product-name"><span class="screen-reader-text"><?php esc_html_e( 'Product Name', 'shopwell' ); ?></span></th>
 				<th scope="col" class="product-price"><?php esc_html_e( 'Price', 'shopwell' ); ?></th>
 				<th scope="col" class="product-quantity"><?php esc_html_e( 'Quantity', 'shopwell' ); ?></th>
 				<th scope="col" class="product-subtotal"><?php esc_html_e( 'Subtotal', 'shopwell' ); ?></th>
-				<th class="product-remove"><span class="screen-reader-text"><?php esc_html_e( 'Remove item', 'shopwell' ); ?></span></th>
+				<th scope="col" class="product-remove"><span class="screen-reader-text"><?php esc_html_e( 'Remove item', 'shopwell' ); ?></span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,7 +41,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			$_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 			$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
-			$visible = apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key );
+			$visible    = apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key );
 				/**
 				 * Filter the product name.
 				 *
@@ -52,7 +52,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 				 */
 				$product_name = apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key );
 
-			if (  $_product instanceof WC_Product && $_product->exists() && $cart_item['quantity'] > 0 && $visible ) {
+			if ( $_product instanceof WC_Product && $_product->exists() && $cart_item['quantity'] > 0 && $visible ) {
 				$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
 				?>
 				<tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
@@ -82,7 +82,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 						?>
 					</td>
 
-					<td scope="row" role="rowheader" class="product-name" data-title="<?php esc_attr_e( 'Product', 'shopwell' ); ?>">
+					<td role="rowheader" class="product-name" data-title="<?php esc_attr_e( 'Product', 'shopwell' ); ?>">
 						<?php
 						if ( ! $product_permalink ) {
 							echo wp_kses_post( $product_name . '&nbsp;' );
