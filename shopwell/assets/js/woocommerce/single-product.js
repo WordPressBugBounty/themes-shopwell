@@ -48,68 +48,68 @@
      * Product Thumbnails
      */
     shopwell.productThumbnails = function ( vertical ) {
-        var $gallery = $('.woocommerce-product-gallery');
+		var $gallery = $('.woocommerce-product-gallery');
 
-        $gallery.imagesLoaded(function () {
-            var columns = $gallery.data('columns'),
-            $thumbnail = $gallery.find('.flex-control-thumbs');
+		var initThumbnails = function () {
+			var columns = $gallery.data('columns'),
+				$thumbnail = $gallery.find('.flex-control-thumbs');
 
-            $thumbnail.wrap('<div class="woocommerce-product-gallery__thumbs-carousel"></div>');
-            $thumbnail.before('<span class="shopwell-svg-icon shopwell-thumbs-button-prev shopwell-swiper-button"><svg viewBox="0 0 19 32"><path d="M13.552 0.72l2.656 1.76-9.008 13.52 9.008 13.52-2.656 1.76-10.192-15.28z"></path></svg></span>');
-            $thumbnail.after('<span class="shopwell-svg-icon shopwell-thumbs-button-next shopwell-swiper-button"><svg viewBox="0 0 19 32"><path d="M5.648 31.28l-2.656-1.76 9.008-13.52-9.008-13.52 2.656-1.76 10.192 15.28z"></path></svg></span>');
-            $thumbnail.wrap('<div class="swiper-container swiper" style="opacity:0"></div>');
-            $thumbnail.addClass('swiper-wrapper');
-            $thumbnail.find('li').addClass('swiper-slide');
+			if (!$thumbnail.length) {
+				return;
+			}
 
-            var options = {
-                loop: false,
-                autoplay: false,
-                speed: 800,
-                spaceBetween: 15,
-                slidesPerView: columns,
-                slidesPerGroup: 1,
-                watchOverflow: true,
-                navigation: {
-                    nextEl: '.shopwell-thumbs-button-next',
-                    prevEl: '.shopwell-thumbs-button-prev',
-                },
-                on: {
-                    init: function () {
-                        setTimeout(function () {
-                            $thumbnail.parent().css('opacity', 1);
-                            $thumbnail.css('opacity', 1);
-                        }, 100);
-                    }
-                },
-                breakpoints: {
-                    300: {
-                        slidesPerView: 3,
-                        spaceBetween: 10,
-                        allowTouchMove: false,
-                    },
-                    768: {
-                        slidesPerView: 4,
-                    },
-                    992: {
-                        slidesPerView: columns,
-                        spaceBetween: 15,
-                    },
-                }
-            };
+			$thumbnail.wrap('<div class="woocommerce-product-gallery__thumbs-carousel"></div>');
+			$thumbnail.before('<span class="shopwell-svg-icon shopwell-thumbs-button-prev shopwell-swiper-button"><svg viewBox="0 0 19 32"><path d="M13.552 0.72l2.656 1.76-9.008 13.52 9.008 13.52-2.656 1.76-10.192-15.28z"></path></svg></span>');
+			$thumbnail.after('<span class="shopwell-svg-icon shopwell-thumbs-button-next shopwell-swiper-button"><svg viewBox="0 0 19 32"><path d="M5.648 31.28l-2.656-1.76 9.008-13.52-9.008-13.52 2.656-1.76 10.192 15.28z"></path></svg></span>');
+			$thumbnail.wrap('<div class="swiper-container swiper" style="opacity:0"></div>');
+			$thumbnail.addClass('swiper-wrapper');
+			$thumbnail.find('li').addClass('swiper-slide');
 
-            if (vertical) {
-                options.direction = 'vertical';
-            } else {
-                options.direction = 'horizontal';
-            }
+			var options = {
+				loop: false,
+				autoplay: false,
+				speed: 800,
+				spaceBetween: 15,
+				slidesPerView: columns,
+				slidesPerGroup: 1,
+				watchOverflow: true,
+				navigation: {
+					nextEl: '.shopwell-thumbs-button-next',
+					prevEl: '.shopwell-thumbs-button-prev',
+				},
+				on: {
+					init: function () {
+						setTimeout(function () {
+							$thumbnail.parent().css('opacity', 1);
+							$thumbnail.css('opacity', 1);
+						}, 100);
+					}
+				},
+				breakpoints: {
+					300: {
+						slidesPerView: 3,
+						spaceBetween: 10,
+						allowTouchMove: false,
+					},
+					768: {
+						slidesPerView: 4,
+					},
+					992: {
+						slidesPerView: columns,
+						spaceBetween: 15,
+					},
+				}
+			};
 
-            new Swiper($thumbnail.parent().get(0), options);
+			options.direction = vertical ? 'vertical' : 'horizontal';
 
-            // Add an <span> to thumbnails for responsive bullets.
-            $('li', $thumbnail).append('<span/>');
-        });
+			new Swiper($thumbnail.parent().get(0), options);
 
-    };
+			$('li', $thumbnail).append('<span/>');
+		};
+
+		$gallery.imagesLoaded(initThumbnails);
+	};
 
      /**
      * Product Image Zoom

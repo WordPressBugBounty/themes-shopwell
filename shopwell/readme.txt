@@ -6,7 +6,7 @@ Tested up to: 7.0
 Requires PHP: 7.1
 License: GNU General Public License v2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0.19
+Stable tag: 1.0.20
 
 Responsive and highly customizable e-commerce theme that makes it easy for anyone to create their perfect online store or marketplace.
 
@@ -27,6 +27,18 @@ Shopwell WordPress Theme, Copyright (c) 2025, Peregrinethemes
 Shopwell is distributed under the terms of the GNU GPLs
 
 == Changelog ==
+
+= 1.0.20 - 13 November 2026 =
+* [New]: Added video support in the product gallery with responsive styles.
+* [Improved]: Gallery videos now use the main image's ratio and width, including in quick view and when a variation changes.
+* [Improved]: Refactored widget styles for improved consistency.
+* [Improved]: Adjusted navigation styles for better alignment and hover effects.
+* [Fixed]: The help center page class was added to every page when no help center page was set.
+* [Fixed]: Safer cart checks in the header cart template.
+* [Fixed]: Typo in the Elementor plugin description on the recommended plugins screen.
+* [Updated]: WooCommerce 11.3.0 templates: cart/cart.php, cart/cart-shipping.php, cart/mini-cart.php, single-product-reviews.php and single-product/meta.php.
+* [Updated]: Product image and thumbnail templates to support video media.
+* [Updated]: Language POT file.
 
 = 1.0.19 - 13 August 2026 =
 *[Fixed]: More than one text-domain issue.

@@ -117,6 +117,9 @@ class WooCommerce {
 			\Shopwell\WooCommerce\Cart::instance();
 		}
 
+		// Gallery videos need the main image ratio on single product, quick view and variation AJAX requests.
+		add_filter( 'woocommerce_single_product_video_thumbnail_html', array( '\Shopwell\WooCommerce\Single_Product', 'product_video_thumbnail_html' ) );
+
 		\Shopwell\WooCommerce\Checkout::instance();
 
 		if ( function_exists( 'wcboost_wishlist' ) ) {

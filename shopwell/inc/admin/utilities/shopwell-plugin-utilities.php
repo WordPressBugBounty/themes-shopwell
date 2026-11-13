@@ -307,7 +307,7 @@ class Shopwell_Plugin_Utilities {
 			'elementor'                  => array(
 				'name'  => 'Elementor Page Builder',
 				'slug'  => 'elementor',
-				'desc'  => 'The #1 no code drag & drop wordpress website builder powering over 16m websites worldwide, now with ai.',
+				'desc'  => 'The #1 no code drag & drop WordPress website builder powering over 16m websites worldwide, now with ai.',
 				'thumb' => 'https://ps.w.org/elementor/assets/icon-256x256.gif',
 			),
 			'contact-form-7'             => array(

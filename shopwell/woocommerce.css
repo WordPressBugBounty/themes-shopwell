@@ -3508,6 +3508,20 @@ body.socials-popup-opened {
 .single-product div.product + .related.products > h2 {
   margin-top: 25px;
 }
+.single-product div.product .woocommerce-product-gallery__thumbs-carousel .flex-control-thumbs img.woocommerce-product-gallery__video-thumbnail-placeholder {
+  width: 100px;
+  max-width: 100%;
+}
+.single-product div.product .woocommerce-product-gallery__video video {
+  display: block;
+  width: 100%;
+  max-width: var(--shopwell-video-width, 100%);
+  height: auto;
+  margin-right: auto;
+  margin-left: auto;
+  aspect-ratio: var(--shopwell-video-ratio, 1/1);
+  object-fit: cover;
+}
 .single-product div.product.product-image-zoom .woocommerce-product-gallery__image a,
 .single-product div.product.product-image-zoom .woocommerce-product-gallery__image img {
   cursor: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxyZWN0IGZpbGw9Im5vbmUiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIvPjxwb2x5Z29uIHBvaW50cz0iMjAsMTEgMTMsMTEgMTMsNCAxMSw0IDExLDExIDQsMTEgNCwxMyAxMSwxMyAxMSwyMCAxMywyMCAxMywxMyAyMCwxMyAiLz48L3N2Zz4=), auto;
@@ -12392,6 +12406,9 @@ ul.products li.product.product-category .woocommerce-loop-category__title .count
     width: auto;
     height: auto;
   }
+  .single-product div.product .woocommerce-product-gallery__thumbs-carousel .flex-control-thumbs li video {
+    display: none;
+  }
   .single-product div.product .woocommerce-product-gallery__thumbs-carousel .flex-control-thumbs li span {
     display: inline-block;
     width: 8px;
@@ -12400,7 +12417,7 @@ ul.products li.product.product-category .woocommerce-loop-category__title .count
     background-color: rgba(185, 185, 185, 0.6);
     margin: 0 6px;
   }
-  .single-product div.product .woocommerce-product-gallery__thumbs-carousel .flex-control-thumbs li .flex-active + span {
+  .single-product div.product .woocommerce-product-gallery__thumbs-carousel .flex-control-thumbs li .flex-active ~ span {
     background-color: #1d2128;
   }
   .single-product div.product .woocommerce-Reviews {

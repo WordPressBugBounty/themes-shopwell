@@ -9,6 +9,7 @@ if ( ! function_exists( 'WC' ) ) {
 	return;
 }
 
+$cart             = WC()->cart;
 $cart_display     = isset( $args['cart_display'] ) ? $args['cart_display'] : 'icon-text';
 $cart_icon        = isset( $args['cart_icon'] ) ? $args['cart_icon'] : 'bag';
 $cart_text        = isset( $args['cart_text'] ) && ! empty( $args['cart_text'] ) ? $args['cart_text'] : '';
@@ -16,8 +17,10 @@ $cart_classes     = isset( $args['cart_classes'] ) ? $args['cart_classes'] : '';
 $cart_text_class  = isset( $args['cart_text_class'] ) ? $args['cart_text_class'] : '';
 $cart_data_toggle = isset( $args['cart_data_toggle'] ) ? $args['cart_data_toggle'] : '';
 
-$hidden  = WC()->cart->is_empty() ? 'hidden' : '';
-$counter = ! empty( WC()->cart ) ? WC()->cart->get_cart_contents_count() : 0;
+// Safe checks: counter defaults to 0 and badge hides if cart is missing or empty.
+$hidden  = ( ! $cart || $cart->is_empty() ) ? 'hidden' : '';
+$counter = $cart ? $cart->get_cart_contents_count() : 0;
+
 ?>
 <div class="header-cart">
 	<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" data-toggle="<?php echo esc_attr( $cart_data_toggle ); ?>" data-target="cart-panel" class="shopwell-button <?php echo esc_attr( $cart_classes ); ?>">
@@ -27,10 +30,10 @@ $counter = ! empty( WC()->cart ) ? WC()->cart->get_cart_contents_count() : 0;
 				switch ( $cart_icon ) {
 					case 'trolley':
 					case 'bag':
-						echo \Shopwell\Icon::get_svg( 'cart-' . $cart_icon );
+						echo \Shopwell\Icon::get_svg( 'cart-' . $cart_icon ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						break;
 					default:
-						echo '<span class="shopwell-svg-icon">' . \Shopwell\Icon::sanitize_svg( $cart_icon ) . '</span>';
+						echo '<span class="shopwell-svg-icon">' . \Shopwell\Icon::sanitize_svg( $cart_icon ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						break;
 				}
 				?>
@@ -41,9 +44,11 @@ $counter = ! empty( WC()->cart ) ? WC()->cart->get_cart_contents_count() : 0;
 			<span class="header-counter header-cart__counter <?php echo esc_attr( $hidden ); ?>"><?php echo intval( $counter ); ?></span>
 		<?php endif; ?>
 	</a>
-	<?php if ( \Shopwell\Helper::get_option( 'header_cart_icon_behaviour' ) == 'dropdown' ) : ?>
+
+	<?php // Only render the dropdown if the cart object is safely loaded to prevent woocommerce_mini_cart() from crashing. ?>
+	<?php if ( $cart && \Shopwell\Helper::get_option( 'header_cart_icon_behaviour' ) == 'dropdown' ) : ?>
 		<div class="cart-dropdown dropdown-content">
-			<?php if ( ! WC()->cart->is_empty() ) : ?>
+			<?php if ( ! $cart->is_empty() ) : ?>
 				<div class="cart-dropdown__header">
 					<?php echo esc_html__( 'Shopping Cart ', 'shopwell' ); ?><span class="cart-dropdown__counter"><?php echo '(' . intval( $counter ) . ')'; ?></span>
 				</div>

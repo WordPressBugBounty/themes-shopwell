@@ -5,7 +5,7 @@ Author: Peregrine Themes
 Author URI: https://peregrine-themes.com
 Theme URI: https://peregrine-themes.com/shopwell
 Description: ShopWell is a fast, lightweight, and customizable WooCommerce theme for online stores and multivendor marketplaces. It offers mobile-first design, flexible layouts, sticky navigation, and customizable headers and footers. It supports popular page builders like Elementor, Gutenberg, Brizy, and Divi. Compatible with WCBoost – Wishlist, Compare, Variation Swatches, Dokan, WCFM, Contact Form 7, and MailChimp. The theme is SEO-friendly, WPML-compatible, and RTL-ready. Live preview: https://peregrine-themes.com/shopwell/#demos
-Version: 1.0.19
+Version: 1.0.20
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.1
@@ -178,39 +178,23 @@ The main CSS file is loaded from "assets/css folder".
     width: 0;
   }
 }
-@-webkit-keyframes fadeInDown {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  to {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
     transform: translate3d(0, -100%, 0);
   }
   to {
     opacity: 1;
-    -webkit-transform: none;
     transform: none;
   }
 }
 @keyframes anim-topbottom {
   49% {
-    -webkit-transform: translateY(100%);
     transform: translateY(100%);
   }
   50% {
     opacity: 0;
     -ms-filter: "alpha(opacity=0)";
-    -webkit-transform: translateY(-100%);
     transform: translateY(-100%);
   }
   51% {
@@ -302,7 +286,8 @@ a {
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
-  text-decoration: underline dotted;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
 }
 
 /**
@@ -748,6 +733,7 @@ ol {
 
 li > ul,
 li > ol {
+  padding-top: 0.4em;
   padding-bottom: 0;
   padding-right: 1.5em;
 }
@@ -758,6 +744,23 @@ dt {
 
 dd {
   margin: 0 1.5em 1.5em;
+}
+
+ul.is-style-checkmark-list {
+  list-style-type: "✓";
+}
+
+ul.is-style-arrow-list {
+  list-style-type: "➔";
+}
+
+.editor-styles-wrapper ul.is-style-arrow-list > li,
+.entry-content ul.is-style-arrow-list > li,
+ul.is-style-arrow-list > li,
+.editor-styles-wrapper ul.is-style-checkmark-list > li,
+.entry-content ul.is-style-checkmark-list > li,
+ul.is-style-checkmark-list > li {
+  padding-inline-start: 1ch;
 }
 
 /* Make sure embeds and iframes fit their containers. */
@@ -1115,6 +1118,10 @@ span.select2 .select2-selection--single:disabled[disabled],
   background-color: #ebeff3;
   cursor: not-allowed;
 }
+input[type=text]::-moz-placeholder, input[type=email]::-moz-placeholder, input[type=url]::-moz-placeholder, input[type=password]::-moz-placeholder, input[type=search]::-moz-placeholder, input[type=number]::-moz-placeholder, input[type=tel]::-moz-placeholder, input[type=range]::-moz-placeholder, input[type=date]::-moz-placeholder, input[type=month]::-moz-placeholder, input[type=week]::-moz-placeholder, input[type=time]::-moz-placeholder, input[type=datetime]::-moz-placeholder, input[type=datetime-local]::-moz-placeholder, input[type=color]::-moz-placeholder, textarea::-moz-placeholder, select::-moz-placeholder, span.select2 .select2-selection--single::-moz-placeholder, .shopwell-input--default::-moz-placeholder, .shopwell-type--input-text::-moz-placeholder {
+  color: #7d828a;
+  font-size: var(--shopwell-input__font-size-pd);
+}
 input[type=text]::placeholder,
 input[type=email]::placeholder,
 input[type=url]::placeholder,
@@ -1144,7 +1151,9 @@ textarea {
 }
 
 select {
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAYAAAAxrNxjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDAyIDc5LjE2NDQ4OCwgMjAyMC8wNy8xMC0yMjowNjo1MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjM3QjIwQkNDMjVBRDExRUM5QkFEQjNEQ0I3NjBBM0UwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjM3QjIwQkNEMjVBRDExRUM5QkFEQjNEQ0I3NjBBM0UwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MzdCMjBCQ0EyNUFEMTFFQzlCQURCM0RDQjc2MEEzRTAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MzdCMjBCQ0IyNUFEMTFFQzlCQURCM0RDQjc2MEEzRTAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6sw4h6AAAAb0lEQVR42mKsaexmZGBgqAPiuUD8hAEVyABxBBD3sACJEiBuAOJYIHZAUgxSdACIlYGYiwlILAfiu1CBA1AFyIpAcvNYoCY4IEkcgJoIUwS2hQUqiK6YAVkRiMOC5HBkxQxo7kVRiKyYAT0EAAIMALwKGx4801sSAAAAAElFTkSuQmCC");
   background-position: calc(100% - (100% - 20px)) center;
   background-repeat: no-repeat;
@@ -1218,8 +1227,6 @@ input[type=checkbox]:checked::after {
   height: 10px;
   border: solid #fff;
   border-width: 0 0 2px 2px;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
   position: absolute;
   top: 2px;
@@ -1655,7 +1662,6 @@ body.page .site-content {
     padding-right: 24px;
   }
   .sticky-sidebar {
-    position: -webkit-sticky;
     position: sticky;
     top: 25px;
     align-self: flex-start;
@@ -5814,7 +5820,7 @@ li.menu-taxonomy-grid-widget__item--all-cats a span:before {
 .main-navigation .nav-menu ul > li.menu-item-has-children:not(.menu-item-mega)::after {
   content: "";
   position: absolute;
-  top: 65%;
+  top: 48%;
   left: 22px;
   display: inline-block;
   width: 8px;
@@ -5868,28 +5874,37 @@ li.menu-taxonomy-grid-widget__item--all-cats a span:before {
   opacity: 0.48;
   transition: 0.25s;
 }
-.main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more) > a {
+.main-navigation .nav-menu > li.page_item_has_children.menu-item-custom-more .children .page_item_has_children > a, .main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more) > a {
+  width: 100%;
   padding-left: 27px;
 }
-.main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more) > a:after {
+.main-navigation .nav-menu > li.page_item_has_children.menu-item-custom-more .children .page_item_has_children > a:after, .main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more) > a:after {
   content: "";
   position: absolute;
-  top: 46%;
+  top: 48%;
   left: 10px;
   display: inline-block;
   width: 8px;
   height: 8px;
   border-top: 2px solid currentColor;
   border-right: 2px solid currentColor;
-  transform: translateY(-48%) rotate(-225deg);
   opacity: 0.48;
 }
-.main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more).hovered > a:after, .main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more):hover > a:after {
+.main-navigation .nav-menu > li.page_item_has_children.menu-item-custom-more .children .page_item_has_children.hovered > a:after, .main-navigation .nav-menu > li.page_item_has_children.menu-item-custom-more .children .page_item_has_children:hover > a:after, .main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more).hovered > a:after, .main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more):hover > a:after {
   opacity: 1;
+}
+.main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more) > a:after {
+  transform: translateY(-48%) rotate(-225deg);
+}
+.main-navigation .nav-menu > li.page_item_has_children.menu-item-custom-more .children .page_item_has_children > a:after {
+  transform: translateY(-48%) rotate(-135deg);
 }
 .main-navigation .nav-menu > li.menu-item-custom-more > a > .shopwell-svg-icon {
   margin-left: 0;
   margin-right: 5px;
+}
+.main-navigation .nav-menu > li.menu-item-custom-more .sub-menu .menu-item-has-children > a .shopwell-svg-icon {
+  display: none;
 }
 .main-navigation .menu-item-mega {
   position: relative;
@@ -6316,13 +6331,20 @@ ul.menu .col-1_1 {
   margin: 0;
   width: 32px;
   height: 32px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   	transform: translateY(-50%) rotateY(180deg);
 }
 .header-category--hamburger .header-category__menu > ul > li > a .menu-item-icon {
   color: inherit;
+}
+.header-category--hamburger .header-category__menu > ul > li > a img.menu-item-icon {
+  width: 40px;
+  height: 40px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .header-category--hamburger .header-category__menu > ul > li .toggle-submenu {
   width: 32px;
@@ -6798,7 +6820,8 @@ ul.menu .col-1_1 {
   height: 16px;
   position: relative;
   top: -3px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 100%;
 }
 .header-preferences .shopwell-button__text {
@@ -9867,20 +9890,22 @@ body.modal-opened {
   min-width: 220px;
   top: 100%;
   right: 0;
+  padding: 13px 0;
   transform: translateY(5px);
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16);
   border-radius: 2px;
   z-index: 9;
   transition: 0.25s;
-}
-.nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.children > li:first-child,
-.nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.sub-menu > li:first-child {
-  padding-top: 17px;
-}
-.nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.children > li:last-child,
-.nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.sub-menu > li:last-child {
-  padding-bottom: 17px;
+  /*>li {
+      &:first-child {
+          padding-top: 17px;
+      }
+
+      &:last-child {
+          padding-bottom: 17px;
+      }
+  }*/
 }
 .nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.children ul,
 .nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.sub-menu ul {
@@ -11916,9 +11941,36 @@ button.search-bar-hc__submit,
   text-decoration: none;
 }
 
+.widget .menu {
+  list-style: none;
+  padding: 0;
+}
+.widget .menu li a {
+  background-image: linear-gradient(to left, currentColor 0%, currentColor 100%);
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.widget .menu li a:focus, .widget .menu li a:hover {
+  background-size: 100% 1px;
+}
+
+.widget_meta li a {
+  background-image: linear-gradient(to left, currentColor 0%, currentColor 100%);
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.widget_meta li a:focus, .widget_meta li a:hover {
+  background-size: 100% 1px;
+}
+
 ul.wp-block-categories,
 .wp-block-categories__list,
 ul.wp-block-archives {
+  list-style: none;
   padding: 0;
   margin: 0;
 }
@@ -11927,7 +11979,6 @@ ul.wp-block-categories li,
 ul.wp-block-archives li {
   font-size: 14px;
   font-size: 0.875rem;
-  list-style: none;
   padding: 8px 0;
   display: flex;
   align-items: center;
@@ -12427,24 +12478,32 @@ p.wp-block-tag-cloud {
   color: #7d828a;
 }
 
+.blog-sidebar .wp-block-list,
+.single-sidebar .wp-block-list,
+.site-footer-widget .wp-block-list,
 .widget > ul,
-.wp-block-list,
 .wp-block-social-links {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.widget > ul,
-.wp-block-list {
+.blog-sidebar .wp-block-list,
+.single-sidebar .wp-block-list,
+.site-footer-widget .wp-block-list,
+.widget > ul {
   font-size: 90%;
 }
-.widget > ul li:not(:last-child),
-.wp-block-list li:not(:last-child) {
+.blog-sidebar .wp-block-list li:not(:last-child),
+.single-sidebar .wp-block-list li:not(:last-child),
+.site-footer-widget .wp-block-list li:not(:last-child),
+.widget > ul li:not(:last-child) {
   margin-bottom: 8px;
 }
-.widget > ul li a,
-.wp-block-list li a {
+.blog-sidebar .wp-block-list li a,
+.single-sidebar .wp-block-list li a,
+.site-footer-widget .wp-block-list li a,
+.widget > ul li a {
   color: inherit;
 }
 
@@ -12656,34 +12715,6 @@ p.wp-block-tag-cloud {
   }
   100% {
     opacity: 0.7;
-  }
-}
-@-webkit-keyframes shopwellBlur {
-  0% {
-    -webkit-filter: blur(0px);
-  }
-  0% {
-    -webkit-filter: blur(1px);
-  }
-  50% {
-    -webkit-filter: blur(2px);
-  }
-  100% {
-    -webkit-filter: blur(3px);
-  }
-}
-@-moz-keyframes shopwellBlur {
-  0% {
-    -moz-filter: blur(0px);
-  }
-  0% {
-    -moz-filter: blur(1px);
-  }
-  50% {
-    -moz-filter: blur(2px);
-  }
-  100% {
-    -moz-filter: blur(3px);
   }
 }
 @keyframes shopwellBlur {
@@ -12901,6 +12932,7 @@ p.wp-block-tag-cloud {
   height: 32px;
   display: flex;
   align-items: center;
+  width: -moz-fit-content;
   width: fit-content;
   border-radius: 30px;
   padding: 6px;
@@ -13394,18 +13426,12 @@ p.wp-block-tag-cloud {
 
 @media (min-width: 768px) {
   .shopwell-icon-box__vertical-align-top .shopwell-icon-box {
-    -webkit-box-align: start;
-    -ms-flex-align: start;
     align-items: flex-start;
   }
   .shopwell-icon-box__vertical-align-middle .shopwell-icon-box {
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
   }
   .shopwell-icon-box__vertical-align-bottom .shopwell-icon-box {
-    -webkit-box-align: end;
-    -ms-flex-align: end;
     align-items: flex-end;
   }
 }
@@ -13950,6 +13976,7 @@ p.wp-block-tag-cloud {
 .elementor-element .shopwell-slides-elementor .swiper-container ~ .swiper-pagination-bullets,
 .elementor-element .shopwell-slides-elementor div.swiper-pagination.swiper-pagination-horizontal,
 .elementor-element .shopwell-slides-elementor .swiper-pagination {
+  width: -moz-max-content;
   width: max-content;
   margin-top: 0;
   text-align: right;
@@ -14477,6 +14504,7 @@ p.wp-block-tag-cloud {
 }
 .shopwell-banner .shopwell-countdown {
   min-width: 13px;
+  width: -moz-fit-content;
   width: fit-content;
   padding: 5px 8px 4px 5px;
   margin-right: -5px;
@@ -14561,11 +14589,7 @@ p.wp-block-tag-cloud {
 }
 
 .shopwell-banner__blur .shopwell-banner:focus-within .shopwell-banner__featured-image, .shopwell-banner__blur .shopwell-banner:hover .shopwell-banner__featured-image {
-  -webkit-animation-name: shopwellBlur;
-  -moz-animation-name: shopwellBlur;
   animation-name: shopwellBlur;
-  -webkit-animation-fill-mode: forwards;
-  -moz-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
 
@@ -14820,6 +14844,7 @@ p.wp-block-tag-cloud {
 
 .shopwell-product-tabs__heading-style--background .shopwell-product-tabs__tabs {
   margin: 0 auto 35px;
+  width: -moz-fit-content;
   width: fit-content;
   background-color: rgba(185, 185, 185, 0.4);
   padding: 8px;
@@ -16349,6 +16374,7 @@ body:not(.product-card-layout-6) .shopwell-product-carousel .shopwell-product-ca
 }
 .elementor-page .shopwell-images-carousel--elementor .swiper-container ~ .swiper-pagination-bullets,
 .elementor-page .shopwell-images-carousel--elementor .swiper-pagination {
+  width: -moz-max-content;
   width: max-content;
   position: absolute;
   right: 50%;
@@ -16979,10 +17005,8 @@ div.shopwell-testimonial__rating .max-rating {
 .shopwell-360-degree-viewer .shopwell-gallery-degree__spinner:before {
   border-width: 2px;
   border-color: #1d2128 transparent #1d2128 #1d2128;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   border-style: solid;
-  -webkit-animation: shopwellSpin 1s linear infinite;
   animation: shopwellSpin 1s linear infinite;
   content: " ";
   width: 40px;
@@ -17404,6 +17428,7 @@ div.shopwell-testimonial__rating .max-rating {
   text-align: center;
   display: flex;
   justify-content: center;
+  width: -moz-max-content;
   width: max-content;
   margin-right: auto;
   margin-left: auto;
@@ -19096,6 +19121,7 @@ button.shopwell-alert__dismiss:after,
     width: 343px;
   }
   .shopwell-search__items {
+    width: -moz-fit-content;
     width: fit-content;
     margin-left: -14px;
     margin-right: -14px;
@@ -19439,7 +19465,8 @@ div.elementor-widget-text-editor {
 }
 .shopwell-sponsor--one .swiper-wrapper .swiper-slide img {
   max-height: var(--sponsor-image-max-height);
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 @media (min-width: 768px) {
@@ -20228,7 +20255,9 @@ div.elementor-widget-text-editor {
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    appearance: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAYAAAAxrNxjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDAyIDc5LjE2NDQ4OCwgMjAyMC8wNy8xMC0yMjowNjo1MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjM3QjIwQkNDMjVBRDExRUM5QkFEQjNEQ0I3NjBBM0UwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjM3QjIwQkNEMjVBRDExRUM5QkFEQjNEQ0I3NjBBM0UwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MzdCMjBCQ0EyNUFEMTFFQzlCQURCM0RDQjc2MEEzRTAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MzdCMjBCQ0IyNUFEMTFFQzlCQURCM0RDQjc2MEEzRTAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6sw4h6AAAAb0lEQVR42mKsaexmZGBgqAPiuUD8hAEVyABxBBD3sACJEiBuAOJYIHZAUgxSdACIlYGYiwlILAfiu1CBA1AFyIpAcvNYoCY4IEkcgJoIUwS2hQUqiK6YAVkRiMOC5HBkxQxo7kVRiKyYAT0EAAIMALwKGx4801sSAAAAAElFTkSuQmCC");
     background-repeat: no-repeat;
     width: 10px;

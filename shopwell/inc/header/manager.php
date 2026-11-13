@@ -208,7 +208,8 @@ class Manager {
 		}
 
 		$help_center_page_id = get_option( 'help_center_page_id' );
-		if ( is_page( $help_center_page_id ) ) {
+		// is_page() returns true for every page when it gets an empty value.
+		if ( ! empty( $help_center_page_id ) && is_page( $help_center_page_id ) ) {
 			$classes .= ' help-center-page';
 		}
 

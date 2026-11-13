@@ -1193,6 +1193,32 @@ input[type=radio]:checked + label {
   text-decoration: none;
 }
 
+.widget .menu {
+  list-style: none;
+  padding: 0;
+}
+.widget .menu li a {
+  background-image: linear-gradient(to right, currentColor 0%, currentColor 100%);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.widget .menu li a:focus, .widget .menu li a:hover {
+  background-size: 100% 1px;
+}
+
+.widget_meta li a {
+  background-image: linear-gradient(to right, currentColor 0%, currentColor 100%);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.widget_meta li a:focus, .widget_meta li a:hover {
+  background-size: 100% 1px;
+}
+
 ul.wp-block-categories,
 .wp-block-categories__list,
 ul.wp-block-archives {

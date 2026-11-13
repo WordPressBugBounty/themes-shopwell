@@ -5,7 +5,7 @@ Author: Peregrine Themes
 Author URI: https://peregrine-themes.com
 Theme URI: https://peregrine-themes.com/shopwell
 Description: ShopWell is a fast, lightweight, and customizable WooCommerce theme for online stores and multivendor marketplaces. It offers mobile-first design, flexible layouts, sticky navigation, and customizable headers and footers. It supports popular page builders like Elementor, Gutenberg, Brizy, and Divi. Compatible with WCBoost – Wishlist, Compare, Variation Swatches, Dokan, WCFM, Contact Form 7, and MailChimp. The theme is SEO-friendly, WPML-compatible, and RTL-ready. Live preview: https://peregrine-themes.com/shopwell/#demos
-Version: 1.0.19
+Version: 1.0.20
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.1
@@ -5826,7 +5826,7 @@ li.menu-taxonomy-grid-widget__item--all-cats a span:before {
 .main-navigation .nav-menu ul > li.menu-item-has-children:not(.menu-item-mega)::after {
   content: "";
   position: absolute;
-  top: 65%;
+  top: 48%;
   right: 22px;
   display: inline-block;
   width: 8px;
@@ -5880,28 +5880,37 @@ li.menu-taxonomy-grid-widget__item--all-cats a span:before {
   opacity: 0.48;
   transition: 0.25s;
 }
-.main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more) > a {
+.main-navigation .nav-menu > li.page_item_has_children.menu-item-custom-more .children .page_item_has_children > a, .main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more) > a {
+  width: 100%;
   padding-right: 27px;
 }
-.main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more) > a:after {
+.main-navigation .nav-menu > li.page_item_has_children.menu-item-custom-more .children .page_item_has_children > a:after, .main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more) > a:after {
   content: "";
   position: absolute;
-  top: 46%;
+  top: 48%;
   right: 10px;
   display: inline-block;
   width: 8px;
   height: 8px;
   border-top: 2px solid currentColor;
   border-left: 2px solid currentColor;
-  transform: translateY(-48%) rotate(225deg);
   opacity: 0.48;
 }
-.main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more).hovered > a:after, .main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more):hover > a:after {
+.main-navigation .nav-menu > li.page_item_has_children.menu-item-custom-more .children .page_item_has_children.hovered > a:after, .main-navigation .nav-menu > li.page_item_has_children.menu-item-custom-more .children .page_item_has_children:hover > a:after, .main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more).hovered > a:after, .main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more):hover > a:after {
   opacity: 1;
+}
+.main-navigation .nav-menu > li.page_item_has_children:not(.menu-item-custom-more) > a:after {
+  transform: translateY(-48%) rotate(225deg);
+}
+.main-navigation .nav-menu > li.page_item_has_children.menu-item-custom-more .children .page_item_has_children > a:after {
+  transform: translateY(-48%) rotate(135deg);
 }
 .main-navigation .nav-menu > li.menu-item-custom-more > a > .shopwell-svg-icon {
   margin-right: 0;
   margin-left: 5px;
+}
+.main-navigation .nav-menu > li.menu-item-custom-more .sub-menu .menu-item-has-children > a .shopwell-svg-icon {
+  display: none;
 }
 .main-navigation .menu-item-mega {
   position: relative;
@@ -9909,20 +9918,22 @@ body.modal-opened {
   min-width: 220px;
   top: 100%;
   left: 0;
+  padding: 13px 0;
   transform: translateY(5px);
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16);
   border-radius: 2px;
   z-index: 9;
   transition: 0.25s;
-}
-.nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.children > li:first-child,
-.nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.sub-menu > li:first-child {
-  padding-top: 17px;
-}
-.nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.children > li:last-child,
-.nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.sub-menu > li:last-child {
-  padding-bottom: 17px;
+  /*>li {
+      &:first-child {
+          padding-top: 17px;
+      }
+
+      &:last-child {
+          padding-bottom: 17px;
+      }
+  }*/
 }
 .nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.children ul,
 .nav-menu li:not(.menu-item-mega):not(.mega-sub-menu) > ul.sub-menu ul {
@@ -11970,6 +11981,32 @@ button.search-bar-hc__submit,
 }
 .wp-block-calendar:not(.wp-block) .wp-calendar-nav a {
   text-decoration: none;
+}
+
+.widget .menu {
+  list-style: none;
+  padding: 0;
+}
+.widget .menu li a {
+  background-image: linear-gradient(to right, currentColor 0%, currentColor 100%);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.widget .menu li a:focus, .widget .menu li a:hover {
+  background-size: 100% 1px;
+}
+
+.widget_meta li a {
+  background-image: linear-gradient(to right, currentColor 0%, currentColor 100%);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.widget_meta li a:focus, .widget_meta li a:hover {
+  background-size: 100% 1px;
 }
 
 ul.wp-block-categories,

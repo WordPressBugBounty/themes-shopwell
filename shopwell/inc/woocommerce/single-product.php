@@ -589,6 +589,38 @@ class Single_Product {
 	}
 
 	/**
+	 * Give gallery videos the same aspect ratio as the main product image,
+	 * so the video follows the "Main image width" / crop settings of the Customizer.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $html Video thumbnail HTML.
+	 *
+	 * @return string
+	 */
+	public static function product_video_thumbnail_html( $html ) {
+		if ( empty( $html ) ) {
+			return $html;
+		}
+
+		global $product;
+
+		$current = $product instanceof \WC_Product ? $product : wc_get_product( get_the_ID() );
+		$style   = '--shopwell-video-ratio:1 / 1;';
+
+		if ( $current && $current->get_image_id() ) {
+			$image = wp_get_attachment_image_src( $current->get_image_id(), 'woocommerce_single' );
+
+			if ( ! empty( $image[1] ) && ! empty( $image[2] ) ) {
+				// Same ratio and width as the main image, so the video never gets bigger than the images.
+				$style = '--shopwell-video-ratio:' . absint( $image[1] ) . ' / ' . absint( $image[2] ) . ';--shopwell-video-width:' . absint( $image[1] ) . 'px;';
+			}
+		}
+
+		return preg_replace( '/^<div /', '<div style="' . esc_attr( $style ) . '" ', $html, 1 );
+	}
+
+	/**
 	 * Open shopwell gallery summary wrapper
 	 *
 	 * @since 1.0.0
@@ -600,7 +632,14 @@ class Single_Product {
 
 		$classes = 'shopwell-product-gallery';
 
-		if ( count( $product->get_gallery_image_ids() ) <= 1 ) {
+		// Count images and videos so a gallery with videos still gets the slider layout.
+		$gallery_count = count( $product->get_gallery_image_ids() );
+
+		if ( class_exists( '\Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery' ) ) {
+			$gallery_count = max( 0, count( \Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery::get_product_media_gallery_items_for_display( $product ) ) - 1 );
+		}
+
+		if ( $gallery_count <= 1 ) {
 			$classes .= ' shopwell-product-gallery--single';
 		}
 
